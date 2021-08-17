@@ -5,7 +5,7 @@
 //  Created by Joshua Bugeja on 17/8/21.
 //
 
-import Foundation
+import UIKit
 import RealmSwift
 
 class Routine: Object {

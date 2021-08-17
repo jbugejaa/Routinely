@@ -7,15 +7,21 @@
 
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
-class RoutineViewController: SwipeTableViewController {
+class RoutineViewController: UIViewController {
     
-    let realm = try! Realm()
+    var realm = try! Realm()
+    
+    @IBOutlet weak var routineTableView: UITableView!
     
     var routines: Results<Routine>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        routineTableView.rowHeight = 80.0
+        routineTableView.separatorStyle = .none
         
         loadRoutines()
     }
@@ -24,13 +30,14 @@ class RoutineViewController: SwipeTableViewController {
     @IBAction func addRoutine(_ sender: UIBarButtonItem) {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add New Workout Routine", message: "", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Add Category", style: .default) { action in
+        let action = UIAlertAction(title: "Add Routine", style: .default) { action in
             // Add item action
             
             let newRoutine = Routine()
             newRoutine.name = textField.text!
             
-            self.save(withRoutine: newRoutine)
+            RealmManager.save(newRoutine, to: self.realm)
+            self.routineTableView.reloadData()
         }
         
         alert.addTextField { alertTextField in
@@ -42,49 +49,70 @@ class RoutineViewController: SwipeTableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK: - TableView Datasource Methods
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    //MARK: - Data Manipulation methods
+    func loadRoutines() {
+        routines = realm.objects(Routine.self)
+        self.routineTableView.reloadData()
+    }
+    
+    func deleteRoutine(at indexPath: IndexPath) {
+        if let routineForDeletion = self.routines?[indexPath.row] {
+            RealmManager.delete(routineForDeletion, from: realm)
+        }
+    }
+    
+}
+
+//MARK: - UITableViewDataSource methods
+extension RoutineViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return routines?.count ?? 1
     }
-        
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-           
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell
         
         cell.textLabel?.text = routines?[indexPath.row].name ?? "No Routines Added Yet"
+
+        cell.delegate = self
         
         return cell
     }
-    
-    //MARK: - Data Manipulation Methods
-    func save(withRoutine routine: Routine) {
-        do {
-            try realm.write {
-                realm.add(routine)
-            }
-        } catch {
-            print("Error saving context, \(error)")
-        }
-        self.tableView.reloadData()
+}
+
+//MARK: - UITableViewDelegate methods
+extension RoutineViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToExercises", sender: self)
     }
-    
-    func loadRoutines() {
-        routines = realm.objects(Routine.self)
-        self.tableView.reloadData()
-    }
-    
-    //MARK: - Delete Data From Swipe
-    override func updateModel(at indexPath: IndexPath) {
-        if let routineForDeletion = self.routines?[indexPath.row] {
-            do {
-                try self.realm.write {
-                    self.realm.delete(routineForDeletion)
-                }
-            } catch {
-                print("Error deleting routine, \(error)")
-            }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! ExercisesViewController
+        
+        if let indexPath = routineTableView.indexPathForSelectedRow {
+            destinationVC.selectedRoutine = routines?[indexPath.row]
         }
     }
+}
+
+//MARK: - SwipeTableViewCellDelegate methods
+extension RoutineViewController: SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            self.deleteRoutine(at: indexPath)
+        }
+        
+        deleteAction.image = UIImage(named: "delete-icon")
+        
+        return [deleteAction]
+    }
     
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        return options
+    }
 }
 

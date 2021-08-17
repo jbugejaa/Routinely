@@ -53,10 +53,46 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="routineTableView" destination="AT1-uL-7dj" id="BXc-hJ-1iO"/>
+                        <segue destination="Gv7-0q-Hty" kind="show" identifier="goToExercises" id="ZKd-yg-Gfy"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WN9-JA-wzU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="183" y="-56"/>
+        </scene>
+        <!--Exercises View Controller-->
+        <scene sceneID="gyP-yq-6o7">
+            <objects>
+                <tableViewController id="Gv7-0q-Hty" customClass="ExercisesViewController" customModule="Routinely" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RlY-yU-upp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExerciseCell" id="3eg-YX-DSe">
+                                <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3eg-YX-DSe" id="1w7-p4-CXw">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Gv7-0q-Hty" id="Iic-qG-Vj7"/>
+                            <outlet property="delegate" destination="Gv7-0q-Hty" id="iFA-XG-6lp"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="h4t-kp-YbY"/>
+                    <connections>
+                        <outlet property="exercisesTableView" destination="RlY-yU-upp" id="68M-kP-FmJ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1mg-C2-Sm5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1128" y="-55"/>
         </scene>
     </scenes>
     <resources>
