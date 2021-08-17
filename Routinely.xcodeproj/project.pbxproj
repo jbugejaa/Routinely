@@ -15,6 +15,8 @@
 		3A45C60D26CB46D1007A9E53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A45C60B26CB46D1007A9E53 /* LaunchScreen.storyboard */; };
 		3A45C61826CB46D1007A9E53 /* RoutinelyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C61726CB46D1007A9E53 /* RoutinelyTests.swift */; };
 		3A45C62326CB46D1007A9E53 /* RoutinelyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C62226CB46D1007A9E53 /* RoutinelyUITests.swift */; };
+		3AD74F9326CB5178009C5658 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3AD74F9226CB5178009C5658 /* Podfile */; };
+		B5D54FB0B34589B6A8363A36 /* Pods_Routinely.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED1E713346E6BACC683D5A99 /* Pods_Routinely.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,10 @@
 		3A45C61E26CB46D1007A9E53 /* RoutinelyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinelyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A45C62226CB46D1007A9E53 /* RoutinelyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinelyUITests.swift; sourceTree = "<group>"; };
 		3A45C62426CB46D1007A9E53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AD74F9226CB5178009C5658 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		E72A1CFF21B929BC0F6E3E3A /* Pods-Routinely.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinely.release.xcconfig"; path = "Target Support Files/Pods-Routinely/Pods-Routinely.release.xcconfig"; sourceTree = "<group>"; };
+		ED1E713346E6BACC683D5A99 /* Pods_Routinely.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Routinely.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F30A1F4C78F1B2A9AF58E948 /* Pods-Routinely.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinely.debug.xcconfig"; path = "Target Support Files/Pods-Routinely/Pods-Routinely.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D54FB0B34589B6A8363A36 /* Pods_Routinely.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,10 +86,13 @@
 		3A45C5F426CB46D0007A9E53 = {
 			isa = PBXGroup;
 			children = (
-				3A45C5FF26CB46D0007A9E53 /* Routinely */,
 				3A45C61626CB46D1007A9E53 /* RoutinelyTests */,
+				3AD74F9226CB5178009C5658 /* Podfile */,
+				3A45C5FF26CB46D0007A9E53 /* Routinely */,
 				3A45C62126CB46D1007A9E53 /* RoutinelyUITests */,
 				3A45C5FE26CB46D0007A9E53 /* Products */,
+				B8B62C025D55DD655C89DEFC /* Pods */,
+				73020BC668E8EE65AD71EE20 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,6 +162,24 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		73020BC668E8EE65AD71EE20 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED1E713346E6BACC683D5A99 /* Pods_Routinely.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B8B62C025D55DD655C89DEFC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F30A1F4C78F1B2A9AF58E948 /* Pods-Routinely.debug.xcconfig */,
+				E72A1CFF21B929BC0F6E3E3A /* Pods-Routinely.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -159,9 +187,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A45C62726CB46D1007A9E53 /* Build configuration list for PBXNativeTarget "Routinely" */;
 			buildPhases = (
+				6E0D34376F2553E1A4A7C7B4 /* [CP] Check Pods Manifest.lock */,
 				3A45C5F926CB46D0007A9E53 /* Sources */,
 				3A45C5FA26CB46D0007A9E53 /* Frameworks */,
 				3A45C5FB26CB46D0007A9E53 /* Resources */,
+				C97EB4150A0D429C6FA60DB3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -257,6 +287,7 @@
 			files = (
 				3A45C60D26CB46D1007A9E53 /* LaunchScreen.storyboard in Resources */,
 				3A45C60A26CB46D1007A9E53 /* Assets.xcassets in Resources */,
+				3AD74F9326CB5178009C5658 /* Podfile in Resources */,
 				3A45C60826CB46D0007A9E53 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,6 +307,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6E0D34376F2553E1A4A7C7B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Routinely-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C97EB4150A0D429C6FA60DB3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Routinely/Pods-Routinely-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Routinely/Pods-Routinely-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Routinely/Pods-Routinely-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3A45C5F926CB46D0007A9E53 /* Sources */ = {
@@ -457,6 +530,7 @@
 		};
 		3A45C62826CB46D1007A9E53 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F30A1F4C78F1B2A9AF58E948 /* Pods-Routinely.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -476,6 +550,7 @@
 		};
 		3A45C62926CB46D1007A9E53 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E72A1CFF21B929BC0F6E3E3A /* Pods-Routinely.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
