@@ -16,6 +16,13 @@ class ExercisesViewController: UIViewController {
     var exercises: Results<Exercise>?
     
     var selectedRoutine: Routine?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        exercisesTableView.rowHeight = 80.0
+        exercisesTableView.separatorStyle = .none
+    }
 }
 
 //MARK: - UITableViewDataSource methods
