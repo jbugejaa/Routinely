@@ -9,6 +9,7 @@ import UIKit
 import RealmSwift
 
 class ExercisesViewController: UIViewController {
+    
     @IBOutlet weak var exercisesTableView: UITableView!
     
     var realm = try! Realm()
@@ -22,6 +23,8 @@ class ExercisesViewController: UIViewController {
         
         exercisesTableView.rowHeight = 80.0
         exercisesTableView.separatorStyle = .none
+        
+        exercisesTableView.dataSource = self
     }
 }
 

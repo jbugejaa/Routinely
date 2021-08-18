@@ -20,6 +20,8 @@ class RoutineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        routineTableView.register(UINib(nibName: "RoutineCell",
+                                        bundle: nil), forCellReuseIdentifier: "RoutineCell")
         routineTableView.rowHeight = 80.0
         routineTableView.separatorStyle = .none
         
@@ -28,25 +30,27 @@ class RoutineViewController: UIViewController {
 
     
     @IBAction func addRoutine(_ sender: UIBarButtonItem) {
-        var textField = UITextField()
-        let alert = UIAlertController(title: "Add New Workout Routine", message: "", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Add Routine", style: .default) { action in
-            // Add item action
-            
-            let newRoutine = Routine()
-            newRoutine.name = textField.text!
-            
-            RealmManager.save(newRoutine, to: self.realm)
-            self.routineTableView.reloadData()
-        }
+        performSegue(withIdentifier: "goToRoutineInput", sender: self)
         
-        alert.addTextField { alertTextField in
-            alertTextField.placeholder = "Create new routine"
-            textField = alertTextField
-        }
-        alert.addAction(action)
-        
-        present(alert, animated: true, completion: nil)
+//        var textField = UITextField()
+//        let alert = UIAlertController(title: "Add New Workout Routine", message: "", preferredStyle: .alert)
+//        let action = UIAlertAction(title: "Add Routine", style: .default) { action in
+//            // Add item action
+//
+//            let newRoutine = Routine()
+//            newRoutine.name = textField.text!
+//
+//            RealmManager.save(newRoutine, to: self.realm)
+//            self.routineTableView.reloadData()
+//        }
+//
+//        alert.addTextField { alertTextField in
+//            alertTextField.placeholder = "Create new routine"
+//            textField = alertTextField
+//        }
+//        alert.addAction(action)
+//
+//        present(alert, animated: true, completion: nil)
     }
     
     //MARK: - Data Manipulation methods
@@ -60,7 +64,6 @@ class RoutineViewController: UIViewController {
             RealmManager.delete(routineForDeletion, from: realm)
         }
     }
-    
 }
 
 //MARK: - UITableViewDataSource methods
@@ -70,12 +73,11 @@ extension RoutineViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SwipeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineCell", for: indexPath) as! RoutineCell
         
-        cell.textLabel?.text = routines?[indexPath.row].name ?? "No Routines Added Yet"
+        cell.routineNameLabel.text = routines?[indexPath.row].name ?? "No Routines Added Yet"
 
         cell.delegate = self
-        
         return cell
     }
 }
@@ -87,10 +89,13 @@ extension RoutineViewController: UITableViewDelegate {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! ExercisesViewController
-        
-        if let indexPath = routineTableView.indexPathForSelectedRow {
-            destinationVC.selectedRoutine = routines?[indexPath.row]
+        if segue.identifier == "goToExercises" {
+            
+            let destinationExercisesVC = segue.destination as! ExercisesViewController
+    
+            if let indexPath = routineTableView.indexPathForSelectedRow {
+                destinationExercisesVC.selectedRoutine = routines?[indexPath.row]
+            }
         }
     }
 }
@@ -115,4 +120,3 @@ extension RoutineViewController: SwipeTableViewCellDelegate {
         return options
     }
 }
-

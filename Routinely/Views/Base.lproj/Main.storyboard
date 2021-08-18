@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +24,7 @@
             </objects>
             <point key="canvasLocation" x="-665" y="-56"/>
         </scene>
-        <!--Routine View Controller-->
+        <!--Routines-->
         <scene sceneID="py7-se-y9k">
             <objects>
                 <tableViewController id="ob7-0T-YhI" customClass="RoutineViewController" customModule="Routinely" customModuleProvider="target" sceneMemberID="viewController">
@@ -31,22 +32,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="UYt-AN-zsB" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
-                                <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UYt-AN-zsB" id="2IL-Vq-DwN">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="ob7-0T-YhI" id="wrY-rM-64A"/>
                             <outlet property="delegate" destination="ob7-0T-YhI" id="tDX-Sy-3wn"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="htl-WP-QcX">
+                    <navigationItem key="navigationItem" title="Routines" id="htl-WP-QcX">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="RVK-U6-WKh">
                             <connections>
                                 <action selector="addRoutine:" destination="ob7-0T-YhI" id="dhW-Tp-mit"/>
@@ -56,6 +47,7 @@
                     <connections>
                         <outlet property="routineTableView" destination="AT1-uL-7dj" id="BXc-hJ-1iO"/>
                         <segue destination="Gv7-0q-Hty" kind="show" identifier="goToExercises" id="ZKd-yg-Gfy"/>
+                        <segue destination="33D-Bm-dkW" kind="presentation" identifier="goToRoutineInput" id="jkT-W2-qm8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WN9-JA-wzU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -94,10 +86,108 @@
             </objects>
             <point key="canvasLocation" x="1128" y="-55"/>
         </scene>
+        <!--Routine Input View Controller-->
+        <scene sceneID="3he-N4-7dt">
+            <objects>
+                <viewController id="33D-Bm-dkW" customClass="RoutineInputViewController" customModule="Routinely" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Ja-59-KJa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="VeJ-3c-w1u">
+                                <rect key="frame" x="20" y="20" width="374" height="782"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="52M-0D-GCB" userLabel="Top Bar">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="37"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUl-rp-aVr">
+                                                <rect key="frame" x="0.0" y="0.0" width="88" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" systemColor="systemBlueColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit your routine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xe4-Jr-Uvf">
+                                                <rect key="frame" x="88" y="0.0" width="215" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t69-tu-AU0">
+                                                <rect key="frame" x="303" y="0.0" width="71" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <color key="textColor" systemColor="systemBlueColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="ava-y9-xwh"/>
+                                        </constraints>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Xg-iI-g0y">
+                                        <rect key="frame" x="0.0" y="40" width="374" height="66"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter routine name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="59D-q1-8lO">
+                                                <rect key="frame" x="10" y="0.0" width="364" height="66"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="59D-q1-8lO" secondAttribute="bottom" id="CDN-as-L6p"/>
+                                            <constraint firstItem="59D-q1-8lO" firstAttribute="top" secondItem="2Xg-iI-g0y" secondAttribute="top" id="Cap-vP-iXA"/>
+                                            <constraint firstAttribute="trailing" secondItem="59D-q1-8lO" secondAttribute="trailing" id="G8w-Nt-6l8"/>
+                                            <constraint firstItem="59D-q1-8lO" firstAttribute="leading" secondItem="2Xg-iI-g0y" secondAttribute="leading" constant="10" id="WzX-GZ-Kfl"/>
+                                            <constraint firstAttribute="height" constant="66" id="eEG-8l-SuZ"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A9s-52-fGW">
+                                        <rect key="frame" x="0.0" y="109" width="374" height="673"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ggB-ia-lN2">
+                                                <rect key="frame" x="0.0" y="0.0" width="366" height="673"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="52M-0D-GCB" firstAttribute="top" secondItem="VeJ-3c-w1u" secondAttribute="top" id="BGS-eS-4f5"/>
+                                    <constraint firstItem="52M-0D-GCB" firstAttribute="leading" secondItem="VeJ-3c-w1u" secondAttribute="leading" id="M4C-W0-fmV"/>
+                                    <constraint firstAttribute="trailing" secondItem="52M-0D-GCB" secondAttribute="trailing" id="aBm-EJ-ayp"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Cmc-Ay-Af3"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <constraints>
+                            <constraint firstItem="VeJ-3c-w1u" firstAttribute="top" secondItem="7Ja-59-KJa" secondAttribute="top" constant="20" id="4Tc-c4-eQF"/>
+                            <constraint firstItem="VeJ-3c-w1u" firstAttribute="leading" secondItem="7Ja-59-KJa" secondAttribute="leading" constant="20" id="eAh-2X-BYb"/>
+                            <constraint firstAttribute="trailing" secondItem="VeJ-3c-w1u" secondAttribute="trailing" constant="20" id="gSE-fX-QL3"/>
+                            <constraint firstAttribute="bottom" secondItem="VeJ-3c-w1u" secondAttribute="bottom" constant="40" id="hv1-Iu-926"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="optionsContainerView" destination="2Xg-iI-g0y" id="osp-No-Ert"/>
+                        <outlet property="routineNameText" destination="59D-q1-8lO" id="sBW-FJ-d5o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ch4-pn-bOk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="182.60869565217394" y="660.9375"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

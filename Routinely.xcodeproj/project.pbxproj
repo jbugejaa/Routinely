@@ -3,13 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3A05909226CB9A4A001D7A43 /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05909126CB9A4A001D7A43 /* Routine.swift */; };
 		3A05909426CB9A55001D7A43 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05909326CB9A55001D7A43 /* Exercise.swift */; };
 		3A05909C26CBC467001D7A43 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3A05909B26CBC467001D7A43 /* Podfile */; };
+		3A398A5826CCAC7E0069CA49 /* RoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A398A5726CCAC7E0069CA49 /* RoutineCell.swift */; };
+		3A398A6026CCC6900069CA49 /* RoutineInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A398A5F26CCC6900069CA49 /* RoutineInputViewController.swift */; };
+		3A398A6226CCE9E60069CA49 /* DayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A398A6126CCE9E60069CA49 /* DayCell.xib */; };
+		3A398A6426CCEF630069CA49 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A398A6326CCEF630069CA49 /* DayCell.swift */; };
 		3A45C60126CB46D0007A9E53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C60026CB46D0007A9E53 /* AppDelegate.swift */; };
 		3A45C60326CB46D0007A9E53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C60226CB46D0007A9E53 /* SceneDelegate.swift */; };
 		3A45C60526CB46D0007A9E53 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C60426CB46D0007A9E53 /* RoutineViewController.swift */; };
@@ -18,6 +22,7 @@
 		3A45C60D26CB46D1007A9E53 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A45C60B26CB46D1007A9E53 /* LaunchScreen.storyboard */; };
 		3A45C61826CB46D1007A9E53 /* RoutinelyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C61726CB46D1007A9E53 /* RoutinelyTests.swift */; };
 		3A45C62326CB46D1007A9E53 /* RoutinelyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C62226CB46D1007A9E53 /* RoutinelyUITests.swift */; };
+		3AB869C126CBD4FD00A5673D /* RoutineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AB869C026CBD4FD00A5673D /* RoutineCell.xib */; };
 		3AEFF07A26CB7D0300D533E8 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFF07926CB7D0300D533E8 /* RealmManager.swift */; };
 		3AEFF07C26CB87F700D533E8 /* ExercisesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEFF07B26CB87F700D533E8 /* ExercisesViewController.swift */; };
 		89F2DF3A7BEAD056756AB750 /* Pods_Routinely.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E052962C7842BD08CE782E65 /* Pods_Routinely.framework */; };
@@ -45,6 +50,10 @@
 		3A05909126CB9A4A001D7A43 /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
 		3A05909326CB9A55001D7A43 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		3A05909B26CBC467001D7A43 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		3A398A5726CCAC7E0069CA49 /* RoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCell.swift; sourceTree = "<group>"; };
+		3A398A5F26CCC6900069CA49 /* RoutineInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineInputViewController.swift; sourceTree = "<group>"; };
+		3A398A6126CCE9E60069CA49 /* DayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DayCell.xib; sourceTree = "<group>"; };
+		3A398A6326CCEF630069CA49 /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		3A45C5FD26CB46D0007A9E53 /* Routinely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A45C60026CB46D0007A9E53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A45C60226CB46D0007A9E53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +68,7 @@
 		3A45C61E26CB46D1007A9E53 /* RoutinelyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinelyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A45C62226CB46D1007A9E53 /* RoutinelyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinelyUITests.swift; sourceTree = "<group>"; };
 		3A45C62426CB46D1007A9E53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AB869C026CBD4FD00A5673D /* RoutineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoutineCell.xib; sourceTree = "<group>"; };
 		3AEFF07926CB7D0300D533E8 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		3AEFF07B26CB87F700D533E8 /* ExercisesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesViewController.swift; sourceTree = "<group>"; };
 		796F23F775EF82AD4666A906 /* Pods-Routinely.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinely.debug.xcconfig"; path = "Target Support Files/Pods-Routinely/Pods-Routinely.debug.xcconfig"; sourceTree = "<group>"; };
@@ -135,11 +145,11 @@
 			isa = PBXGroup;
 			children = (
 				3A05909026CB9A30001D7A43 /* Models */,
-				3A45C60026CB46D0007A9E53 /* AppDelegate.swift */,
 				3A45C63126CB46E4007A9E53 /* Views */,
 				3A45C63026CB46DC007A9E53 /* Controllers */,
 				3AEFF07826CB7CE100D533E8 /* Helpers */,
 				3AEFF07026CB660700D533E8 /* Supporting Files */,
+				3A45C60026CB46D0007A9E53 /* AppDelegate.swift */,
 				3A45C60226CB46D0007A9E53 /* SceneDelegate.swift */,
 				3A45C60E26CB46D1007A9E53 /* Info.plist */,
 			);
@@ -169,6 +179,7 @@
 			children = (
 				3A45C60426CB46D0007A9E53 /* RoutineViewController.swift */,
 				3AEFF07B26CB87F700D533E8 /* ExercisesViewController.swift */,
+				3A398A5F26CCC6900069CA49 /* RoutineInputViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -177,6 +188,10 @@
 			isa = PBXGroup;
 			children = (
 				3A45C60626CB46D0007A9E53 /* Main.storyboard */,
+				3AB869C026CBD4FD00A5673D /* RoutineCell.xib */,
+				3A398A5726CCAC7E0069CA49 /* RoutineCell.swift */,
+				3A398A6126CCE9E60069CA49 /* DayCell.xib */,
+				3A398A6326CCEF630069CA49 /* DayCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -204,7 +219,6 @@
 				796F23F775EF82AD4666A906 /* Pods-Routinely.debug.xcconfig */,
 				112684BBA0B9060D8F62A88E /* Pods-Routinely.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -316,6 +330,8 @@
 				3A45C60D26CB46D1007A9E53 /* LaunchScreen.storyboard in Resources */,
 				3A45C60A26CB46D1007A9E53 /* Assets.xcassets in Resources */,
 				3A05909C26CBC467001D7A43 /* Podfile in Resources */,
+				3A398A6226CCE9E60069CA49 /* DayCell.xib in Resources */,
+				3AB869C126CBD4FD00A5673D /* RoutineCell.xib in Resources */,
 				3A45C60826CB46D0007A9E53 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,10 +400,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AEFF07A26CB7D0300D533E8 /* RealmManager.swift in Sources */,
+				3A398A6426CCEF630069CA49 /* DayCell.swift in Sources */,
+				3A398A5826CCAC7E0069CA49 /* RoutineCell.swift in Sources */,
 				3AEFF07C26CB87F700D533E8 /* ExercisesViewController.swift in Sources */,
 				3A05909226CB9A4A001D7A43 /* Routine.swift in Sources */,
 				3A45C60526CB46D0007A9E53 /* RoutineViewController.swift in Sources */,
 				3A45C60126CB46D0007A9E53 /* AppDelegate.swift in Sources */,
+				3A398A6026CCC6900069CA49 /* RoutineInputViewController.swift in Sources */,
 				3A05909426CB9A55001D7A43 /* Exercise.swift in Sources */,
 				3A45C60326CB46D0007A9E53 /* SceneDelegate.swift in Sources */,
 			);
