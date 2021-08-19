@@ -171,6 +171,7 @@
                     </view>
                     <connections>
                         <outlet property="optionsContainerView" destination="2Xg-iI-g0y" id="osp-No-Ert"/>
+                        <outlet property="routineInputTableView" destination="ggB-ia-lN2" id="hKE-Cc-m38"/>
                         <outlet property="routineNameText" destination="59D-q1-8lO" id="sBW-FJ-d5o"/>
                     </connections>
                 </viewController>
