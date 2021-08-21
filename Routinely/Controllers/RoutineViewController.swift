@@ -9,6 +9,8 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 
+// TODO(Joshua) - Load routine date from local DB properly
+
 class RoutineViewController: UIViewController {
     
     var realm = try! Realm()
@@ -28,35 +30,32 @@ class RoutineViewController: UIViewController {
         loadRoutines()
     }
 
-    
     @IBAction func addRoutine(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "goToRoutineInput", sender: self)
-        
-//        var textField = UITextField()
-//        let alert = UIAlertController(title: "Add New Workout Routine", message: "", preferredStyle: .alert)
-//        let action = UIAlertAction(title: "Add Routine", style: .default) { action in
-//            // Add item action
-//
-//            let newRoutine = Routine()
-//            newRoutine.name = textField.text!
-//
-//            RealmManager.save(newRoutine, to: self.realm)
-//            self.routineTableView.reloadData()
-//        }
-//
-//        alert.addTextField { alertTextField in
-//            alertTextField.placeholder = "Create new routine"
-//            textField = alertTextField
-//        }
-//        alert.addAction(action)
-//
-//        present(alert, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToExercises" {
+            
+            let destinationVC = segue.destination as! ExercisesViewController
+    
+            if let indexPath = routineTableView.indexPathForSelectedRow {
+                destinationVC.selectedRoutine = routines?[indexPath.row]
+            }
+        } else if segue.identifier == "goToRoutineInput" {
+            let destinationVC = segue.destination as! RoutineInputViewController
+            
+            destinationVC.delegate = self
+        }
     }
     
     //MARK: - Data Manipulation methods
     func loadRoutines() {
-        routines = realm.objects(Routine.self)
-        self.routineTableView.reloadData()
+        
+        DispatchQueue.main.async {
+            self.routines = self.realm.objects(Routine.self)
+            self.routineTableView.reloadData()
+        }
     }
     
     func deleteRoutine(at indexPath: IndexPath) {
@@ -87,17 +86,6 @@ extension RoutineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToExercises", sender: self)
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToExercises" {
-            
-            let destinationExercisesVC = segue.destination as! ExercisesViewController
-    
-            if let indexPath = routineTableView.indexPathForSelectedRow {
-                destinationExercisesVC.selectedRoutine = routines?[indexPath.row]
-            }
-        }
-    }
 }
 
 //MARK: - SwipeTableViewCellDelegate methods
@@ -118,5 +106,12 @@ extension RoutineViewController: SwipeTableViewCellDelegate {
         var options = SwipeOptions()
         options.expansionStyle = .destructive
         return options
+    }
+}
+
+//MARK: - RoutineInputViewDelegate methods
+extension RoutineViewController: RoutineInputViewDelegate {
+    func didUpdateWeather(_ routineInputViewController: RoutineInputViewController) {
+        loadRoutines()
     }
 }
