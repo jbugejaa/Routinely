@@ -9,5 +9,13 @@ import UIKit
 import RealmSwift
 
 class Exercise: Object {
-    @objc dynamic var name: String = ""
+    @Persisted var name: String = ""
+    
+    @Persisted var weightInKg: Int = 0
+    
+    @Persisted var numberOfSets: Int = 0
+    
+    @Persisted var numberOfRepsMin: Int = 0
+    @Persisted var numberOfRepsMax: Int?
+    
 }

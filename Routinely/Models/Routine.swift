@@ -9,8 +9,8 @@ import UIKit
 import RealmSwift
 
 class Routine: Object {
-    @objc dynamic var name: String = "Untitled"
-    @objc dynamic var day: String?
-    @objc dynamic var startTime: Date?
-    @objc dynamic var endTime: Date?
+    @Persisted var name: String = ""
+    @Persisted var day: String = ""
+    @Persisted var startTime: Date = Date()
+    @Persisted var endTime: Date = Date()
 }

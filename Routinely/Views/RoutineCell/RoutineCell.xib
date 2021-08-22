@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RoutineCell" rowHeight="80" id="vVZ-bJ-4dz" customClass="RoutineCell" customModule="Routinely" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="502" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vVZ-bJ-4dz" id="kJI-oC-aeO">
+                <rect key="frame" x="0.0" y="0.0" width="502" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="jHN-I4-Xy3">
+                        <rect key="frame" x="15" y="0.0" width="487" height="80"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upper Hypertrophy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8F-0b-fae">
+                                <rect key="frame" x="0.0" y="0.0" width="487" height="39.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday | 15:00 - 17:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yW7-XW-8EY">
+                                <rect key="frame" x="0.0" y="40.5" width="487" height="39.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="80" id="sTh-hP-6Uh"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jHN-I4-Xy3" firstAttribute="leading" secondItem="kJI-oC-aeO" secondAttribute="leading" constant="15" id="4A3-2u-9SX"/>
+                    <constraint firstItem="jHN-I4-Xy3" firstAttribute="top" secondItem="kJI-oC-aeO" secondAttribute="top" id="C76-m9-3Ck"/>
+                    <constraint firstAttribute="trailing" secondItem="jHN-I4-Xy3" secondAttribute="trailing" id="Ucn-pT-vB0"/>
+                    <constraint firstAttribute="bottom" secondItem="jHN-I4-Xy3" secondAttribute="bottom" id="d1n-f2-XAC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dayAndTimeLabel" destination="yW7-XW-8EY" id="DK8-HZ-lKq"/>
+                <outlet property="routineNameLabel" destination="l8F-0b-fae" id="Pp0-sc-e49"/>
+            </connections>
+            <point key="canvasLocation" x="-518.84057971014499" y="64.955357142857139"/>
+        </tableViewCell>
+    </objects>
+</document>

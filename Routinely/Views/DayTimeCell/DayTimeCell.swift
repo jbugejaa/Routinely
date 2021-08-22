@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DayTimeCellDelegate {
-    func didUpdateDayTime(_ dayTimeCell: DayTimeCell, time: String)
+    func didUpdateDayTime(_ dayTimeCell: DayTimeCell, dayOrTime: String)
     func didFailWithError(error: Error)
 }
 
@@ -33,6 +33,8 @@ class DayTimeCell: UITableViewCell {
     
     let dayPickerData = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
+    let dateFormatter = DateFormatter()
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -44,17 +46,20 @@ class DayTimeCell: UITableViewCell {
         
         dayPicker.dataSource = self
         dayPicker.delegate = self
+        
+        dateFormatter.dateFormat = "h:mm a"
     }
 
     @IBAction func timeValueChanged(_ sender: UIDatePicker) {
         
-        let timeString = sender.date.getFormattedDate(format: "h:mm a")
+        let timeString = dateFormatter.string(from: sender.date)
         
         subtitleLabel.text = timeString
-        delegate?.didUpdateDayTime(self, time: timeString)
+        delegate?.didUpdateDayTime(self, dayOrTime: timeString)
     }
 }
 
+//MARK: - UIPickerViewDataSource methods
 extension DayTimeCell: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -65,6 +70,7 @@ extension DayTimeCell: UIPickerViewDataSource {
     }
 }
 
+//MARK: - UIPickerViewDelegate methods
 extension DayTimeCell: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return dayPickerData[row]
@@ -74,14 +80,6 @@ extension DayTimeCell: UIPickerViewDelegate {
 
         let dayString = dayPickerData[row]
 
-        delegate?.didUpdateDayTime(self, time: dayString)
-    }
-}
-
-extension Date {
-   func getFormattedDate(format: String) -> String {
-        let dateformat = DateFormatter()
-        dateformat.dateFormat = format
-        return dateformat.string(from: self)
+        delegate?.didUpdateDayTime(self, dayOrTime: dayString)
     }
 }

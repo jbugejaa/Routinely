@@ -90,8 +90,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKf-nS-BmG">
                                 <rect key="frame" x="0.0" y="54.5" width="469" height="54"/>
                                 <subviews>
-                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="DcG-vJ-1nY">
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" style="inline" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DcG-vJ-1nY">
                                         <rect key="frame" x="280" y="2" width="189" height="50"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="651463200.13116896">
+                                            <!--2021-08-24 02:00:00 +0000-->
+                                        </date>
                                         <connections>
                                             <action selector="timeValueChanged:" destination="naL-gI-Hpu" eventType="valueChanged" id="y6S-YD-pLn"/>
                                         </connections>

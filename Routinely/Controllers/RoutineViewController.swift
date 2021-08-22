@@ -49,9 +49,10 @@ class RoutineViewController: UIViewController {
     
     //MARK: - Data Manipulation methods
     func loadRoutines() {
+    
+        self.routines = self.realm.objects(Routine.self)
         
         DispatchQueue.main.async {
-            self.routines = self.realm.objects(Routine.self)
             self.routineTableView.reloadData()
         }
     }
@@ -121,7 +122,7 @@ extension RoutineViewController: SwipeTableViewCellDelegate {
 
 //MARK: - RoutineInputViewDelegate methods
 extension RoutineViewController: RoutineInputViewDelegate {
-    func didUpdateWeather(_ routineInputViewController: RoutineInputViewController) {
+    func didUpdateRoutines(_ routineInputViewController: RoutineInputViewController) {
         loadRoutines()
     }
 }

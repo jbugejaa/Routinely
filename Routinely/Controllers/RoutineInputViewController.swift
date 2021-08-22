@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 protocol RoutineInputViewDelegate {
-    func didUpdateWeather(_ routineInputViewController: RoutineInputViewController)
+    func didUpdateRoutines(_ routineInputViewController: RoutineInputViewController)
 }
 
 class RoutineInputViewController: UIViewController {
@@ -30,6 +30,8 @@ class RoutineInputViewController: UIViewController {
     
     var routineInputCellDataArray: [RoutineInputCellData] = []
     
+    let dateFormatter = DateFormatter()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +43,7 @@ class RoutineInputViewController: UIViewController {
         
         routineInputCellDataArray.append(RoutineInputCellData("Day", "Monday", "calendar"))
         routineInputCellDataArray.append(RoutineInputCellData("Start Time", "12:00 PM", "clock"))
-        routineInputCellDataArray.append(RoutineInputCellData("End Time", "2:00 PM", "clock.fill"))
+        routineInputCellDataArray.append(RoutineInputCellData("End Time", "12:00 PM", "clock.fill"))
         
         routineInputTableView.register(UINib(nibName: "DayTimeCell",
                                         bundle: nil), forCellReuseIdentifier: "DayTimeCell")
@@ -51,8 +53,8 @@ class RoutineInputViewController: UIViewController {
         
         routineInputTableView.tableFooterView = UIView(frame: .zero)
         
+        dateFormatter.dateFormat = "h:mm a"
     }
-    
     
     //MARK: - Top bar button Actions
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
@@ -60,19 +62,35 @@ class RoutineInputViewController: UIViewController {
     }
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
-        dismiss(animated: true) {
-            let newRoutine = Routine()
-            let dateformat = DateFormatter()
-            dateformat.dateFormat = "h:mm a"
-            
-            newRoutine.name = self.routineNameText.text ?? "Untitled"
-            newRoutine.day = self.routineInputCellDataArray[0].subtitle
-            newRoutine.startTime = dateformat.date(from: self.routineInputCellDataArray[1].subtitle)
-            newRoutine.endTime = dateformat.date(from: self.routineInputCellDataArray[2].subtitle)
-            
-            RealmManager.save(newRoutine, to: self.realm)
-            
-            self.delegate?.didUpdateWeather(self)
+
+        
+        let startTime = dateFormatter.date(from: self.routineInputCellDataArray[1].subtitle)!
+        let endTime = dateFormatter.date(from: self.routineInputCellDataArray[2].subtitle)!
+        
+        
+        // Verifying user input
+        if self.routineNameText.text == nil || self.routineNameText.text == "" {
+            let alert = UIAlertController(title: "Oops", message: "Please enter a routine name", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else if startTime > endTime {
+            let alert = UIAlertController(title: "Oops", message: "Please enter a valid time range", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            // Dismiss modal and save data to DB
+            dismiss(animated: true) {
+                let newRoutine = Routine()
+
+                newRoutine.name = self.routineNameText.text!
+                newRoutine.day = self.routineInputCellDataArray[0].subtitle
+                newRoutine.startTime = startTime
+                newRoutine.endTime = endTime
+
+                RealmManager.save(newRoutine, to: self.realm)
+
+                self.delegate?.didUpdateRoutines(self)
+            }
         }
     }
 }
@@ -111,10 +129,10 @@ extension RoutineInputViewController: UITableViewDelegate {
 
 //MARK: - DayTimeCellDelegate methods
 extension RoutineInputViewController: DayTimeCellDelegate {
-    func didUpdateDayTime(_ dayTimeCell: DayTimeCell, time: String) {
+    func didUpdateDayTime(_ dayTimeCell: DayTimeCell, dayOrTime: String) {
         if let collectionView = dayTimeCell.superview as? UITableView, let indexPath = collectionView.indexPath(for: dayTimeCell)
                {
-            routineInputCellDataArray[indexPath.row].subtitle = time
+            routineInputCellDataArray[indexPath.row].subtitle = dayOrTime
         }
     }
 
