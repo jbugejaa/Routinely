@@ -9,8 +9,6 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 
-// TODO(Joshua) - Load routine date from local DB properly
-
 class RoutineViewController: UIViewController {
     
     var realm = try! Realm()
@@ -72,9 +70,21 @@ extension RoutineViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let dateformat = DateFormatter()
+        dateformat.dateFormat = "h:mm a"
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineCell", for: indexPath) as! RoutineCell
         
         cell.routineNameLabel.text = routines?[indexPath.row].name ?? "No Routines Added Yet"
+                
+        if let day = routines?[indexPath.row].day, let startTime = routines?[indexPath.row].startTime, let endTime = routines?[indexPath.row].endTime {
+            let startTimeStr = dateformat.string(from: startTime)
+            let endTimeStr = dateformat.string(from: endTime)
+            
+            cell.dayAndTimeLabel.text = "\(day) | \(startTimeStr) - \(endTimeStr)"
+        } else {
+            print("Error getting start/end times")
+        }
 
         cell.delegate = self
         return cell

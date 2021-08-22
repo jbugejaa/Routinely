@@ -65,7 +65,7 @@ class RoutineInputViewController: UIViewController {
             let dateformat = DateFormatter()
             dateformat.dateFormat = "h:mm a"
             
-            newRoutine.name = self.routineNameText.text ?? ""
+            newRoutine.name = self.routineNameText.text ?? "Untitled"
             newRoutine.day = self.routineInputCellDataArray[0].subtitle
             newRoutine.startTime = dateformat.date(from: self.routineInputCellDataArray[1].subtitle)
             newRoutine.endTime = dateformat.date(from: self.routineInputCellDataArray[2].subtitle)
