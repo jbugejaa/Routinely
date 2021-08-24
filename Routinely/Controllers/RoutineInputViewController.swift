@@ -24,74 +24,110 @@ class RoutineInputViewController: UIViewController {
         
     @IBOutlet weak var routineInputTableView: UITableView!
     
+    var routineBeingEdited: Routine?
+    
     var timeRowSelected: Bool = false
     
     var dayRowSelected: Bool = false
     
     var routineInputCellDataArray: [RoutineInputCellData] = []
     
+    var startTime: String = "12:00 PM"
+    
+    var startTimeDate: Date {
+        return dateFormatter.date(from: self.routineInputCellDataArray[1].subtitle)!
+    }
+    
+    var endTime: String = "12:00 PM"
+    
+    var endTimeDate: Date {
+        return dateFormatter.date(from: self.routineInputCellDataArray[2].subtitle)!
+    }
+    
     let dateFormatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Initialise dateformat
+        dateFormatter.dateFormat = "h:mm a"
+        
+        // Setup UI components
         routineInputTableView.layer.cornerRadius = 20
         routineInputTableView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        
         enterRoutineBarView.layer.cornerRadius = 20
         enterRoutineBarView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        routineInputCellDataArray.append(RoutineInputCellData("Day", "Monday", "calendar"))
-        routineInputCellDataArray.append(RoutineInputCellData("Start Time", "12:00 PM", "clock"))
-        routineInputCellDataArray.append(RoutineInputCellData("End Time", "12:00 PM", "clock.fill"))
+        // Setup initial routine values
+        if let existingRoutine = self.routineBeingEdited {
+            startTime = dateFormatter.string(from: existingRoutine.startTime)
+            endTime = dateFormatter.string(from: existingRoutine.endTime)
+        }
+        routineNameText.text = self.routineBeingEdited?.name
+        routineInputCellDataArray.append(RoutineInputCellData("Day", self.routineBeingEdited?.day ?? "Monday", "calendar"))
+        routineInputCellDataArray.append(RoutineInputCellData("Start Time", startTime, "clock"))
+        routineInputCellDataArray.append(RoutineInputCellData("End Time", endTime, "clock.fill"))
         
+        // Input table view setup
         routineInputTableView.register(UINib(nibName: "DayTimeCell",
                                         bundle: nil), forCellReuseIdentifier: "DayTimeCell")
-        
         routineInputTableView.dataSource = self
         routineInputTableView.delegate = self
-        
         routineInputTableView.tableFooterView = UIView(frame: .zero)
         
-        dateFormatter.dateFormat = "h:mm a"
+
     }
     
-    //MARK: - Top bar button Actions
+    //MARK: - Top bar button press actions
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    
     @IBAction func doneButtonPressed(_ sender: UIButton) {
 
-        
-        let startTime = dateFormatter.date(from: self.routineInputCellDataArray[1].subtitle)!
-        let endTime = dateFormatter.date(from: self.routineInputCellDataArray[2].subtitle)!
-        
-        
         // Verifying user input
         if self.routineNameText.text == nil || self.routineNameText.text == "" {
             let alert = UIAlertController(title: "Oops", message: "Please enter a routine name", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-        } else if startTime > endTime {
+        } else if startTimeDate > endTimeDate {
             let alert = UIAlertController(title: "Oops", message: "Please enter a valid time range", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
             // Dismiss modal and save data to DB
             dismiss(animated: true) {
-                let newRoutine = Routine()
-
-                newRoutine.name = self.routineNameText.text!
-                newRoutine.day = self.routineInputCellDataArray[0].subtitle
-                newRoutine.startTime = startTime
-                newRoutine.endTime = endTime
-
-                RealmManager.save(newRoutine, to: self.realm)
-
+                if let existingRoutine = self.routineBeingEdited {
+                    self.updateRoutine(from: existingRoutine)
+                } else {
+                    self.addRoutine()
+                }
+                
                 self.delegate?.didUpdateRoutines(self)
             }
         }
+    }
+    
+    //MARK: - Update routine methods
+    func updateRoutine(from existingRoutine: Routine) {
+        do {
+            try realm.write {
+                existingRoutine.name = self.routineNameText.text!
+                existingRoutine.day = self.routineInputCellDataArray[0].subtitle
+                existingRoutine.startTime = startTimeDate
+                existingRoutine.endTime = endTimeDate
+            }
+        } catch {
+            print("Error updating context, \(error)")
+        }
+    }
+    func addRoutine() {
+        let newRoutine = Routine()
+        newRoutine.name = self.routineNameText.text!
+        newRoutine.day = self.routineInputCellDataArray[0].subtitle
+        newRoutine.startTime = startTimeDate
+        newRoutine.endTime = endTimeDate
+
+        RealmManager.save(newRoutine, to: self.realm)
     }
 }
 
@@ -105,6 +141,22 @@ extension RoutineInputViewController: UITableViewDataSource {
         cell.titleLabel.text = routineInputCellDataArray[indexPath.row].title
         cell.subtitleLabel.text = routineInputCellDataArray[indexPath.row].subtitle
         cell.cellImageView.image = UIImage(systemName: routineInputCellDataArray[indexPath.row].imageName)
+        
+        if let existingRoutine = self.routineBeingEdited {
+
+            switch cell.titleLabel.text {
+            case "Day":
+                if let indexPosition = cell.dayPickerData.firstIndex(of: existingRoutine.day) {
+                    cell.dayPicker.selectRow(indexPosition, inComponent: 0, animated: true)
+                }
+            case "Start Time":
+                cell.timePicker.date = existingRoutine.startTime
+            case "End Time":
+                cell.timePicker.date = existingRoutine.endTime
+            default:
+                print("Error, incorrect title for day/time cell")
+            }
+        }
                 
         cell.delegate = self
         

@@ -15,7 +15,5 @@ class Exercise: Object {
     
     @Persisted var numberOfSets: Int = 0
     
-    @Persisted var numberOfRepsMin: Int = 0
-    @Persisted var numberOfRepsMax: Int?
-    
+    @Persisted var numberOfRepsRange: List<Int> = List<Int>()
 }

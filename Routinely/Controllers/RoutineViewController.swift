@@ -16,6 +16,8 @@ class RoutineViewController: UIViewController {
     @IBOutlet weak var routineTableView: UITableView!
     
     var routines: Results<Routine>?
+    
+    var rowBeingEdited: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +31,14 @@ class RoutineViewController: UIViewController {
     }
 
     @IBAction func addRoutine(_ sender: UIBarButtonItem) {
+        rowBeingEdited = nil
         performSegue(withIdentifier: "goToRoutineInput", sender: self)
+    }
+    
+    func editRoutine(at indexPath: IndexPath) {
+        rowBeingEdited = indexPath.row
+        performSegue(withIdentifier: "goToRoutineInput", sender: self)
+        rowBeingEdited = nil
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -42,6 +51,10 @@ class RoutineViewController: UIViewController {
             }
         } else if segue.identifier == "goToRoutineInput" {
             let destinationVC = segue.destination as! RoutineInputViewController
+            
+            if let row = rowBeingEdited {
+                destinationVC.routineBeingEdited = routines?[row]
+            }
             
             destinationVC.delegate = self
         }
@@ -102,20 +115,36 @@ extension RoutineViewController: UITableViewDelegate {
 //MARK: - SwipeTableViewCellDelegate methods
 extension RoutineViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .right else { return nil }
         
-        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-            self.deleteRoutine(at: indexPath)
+        if orientation == .right {
+            let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+                self.deleteRoutine(at: indexPath)
+            }
+            
+            deleteAction.image = UIImage(systemName: "trash")
+            
+            return [deleteAction]
+        } else if orientation == .left {
+            let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
+                self.editRoutine(at: indexPath)
+            }
+            editAction.image = UIImage(systemName: "square.and.pencil")
+            
+            return [editAction]
         }
         
-        deleteAction.image = UIImage(named: "delete-icon")
-        
-        return [deleteAction]
+        return nil
     }
     
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeOptions()
-        options.expansionStyle = .destructive
+        
+        if orientation == .right {
+            options.expansionStyle = .destructive
+        } else if orientation == .left {
+            options.expansionStyle = .selection
+        }
+        
         return options
     }
 }
