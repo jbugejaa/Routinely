@@ -101,6 +101,7 @@ extension RoutineViewController: UITableViewDataSource {
         }
 
         cell.delegate = self
+    
         return cell
     }
 }
@@ -117,10 +118,18 @@ extension RoutineViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         
         if orientation == .right {
-            let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-                self.deleteRoutine(at: indexPath)
-            }
             
+            let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+                self.displayConfirmationAlert { deleteTapped in
+                    if deleteTapped {
+                        action.fulfill(with: .delete)
+                        self.deleteRoutine(at: indexPath)
+                        self.routineTableView.deleteRows(at: [indexPath], with: .left)
+                    } else {
+                        action.fulfill(with: .reset)
+                    }
+                }
+            }
             deleteAction.image = UIImage(systemName: "trash")
             
             return [deleteAction]
@@ -128,6 +137,7 @@ extension RoutineViewController: SwipeTableViewCellDelegate {
             let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
                 self.editRoutine(at: indexPath)
             }
+            editAction.backgroundColor = #colorLiteral(red: 0.1411764706, green: 0.6274509804, blue: 0.9294117647, alpha: 1)
             editAction.image = UIImage(systemName: "square.and.pencil")
             
             return [editAction]
@@ -140,12 +150,33 @@ extension RoutineViewController: SwipeTableViewCellDelegate {
         var options = SwipeOptions()
         
         if orientation == .right {
-            options.expansionStyle = .destructive
+            options.expansionStyle = .selection
         } else if orientation == .left {
             options.expansionStyle = .selection
         }
         
         return options
+    }
+    
+    // Create delete confirmation alert with handler
+    private func displayConfirmationAlert(completion: @escaping (Bool) -> Void) {
+        
+        let alert = UIAlertController(title: nil, message: "Are you sure you want to delete this routine?", preferredStyle: .actionSheet)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (deleteAction) in
+            alert.dismiss(animated: true, completion: nil)
+            completion(true)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (cancelAction) in
+            alert.dismiss(animated: true, completion: nil)
+            completion(false)
+        }
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 
