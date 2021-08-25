@@ -62,24 +62,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExerciseCell" id="3eg-YX-DSe">
-                                <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3eg-YX-DSe" id="1w7-p4-CXw">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Gv7-0q-Hty" id="Iic-qG-Vj7"/>
                             <outlet property="delegate" destination="Gv7-0q-Hty" id="iFA-XG-6lp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="h4t-kp-YbY"/>
+                    <navigationItem key="navigationItem" id="h4t-kp-YbY">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="u2O-ZH-4D6">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="Gv7-0q-Hty" id="Ewr-WF-gdY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="exercisesTableView" destination="RlY-yU-upp" id="68M-kP-FmJ"/>
+                        <outlet property="exerciseTableView" destination="RlY-yU-upp" id="68M-kP-FmJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1mg-C2-Sm5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

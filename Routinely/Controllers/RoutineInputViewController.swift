@@ -107,7 +107,7 @@ class RoutineInputViewController: UIViewController {
         }
     }
     
-    //MARK: - Update routine methods
+    //MARK: - Data manipulation methods
     func updateRoutine(from existingRoutine: Routine) {
         do {
             try realm.write {

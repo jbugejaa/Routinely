@@ -13,4 +13,6 @@ class Routine: Object {
     @Persisted var day: String = ""
     @Persisted var startTime: Date = Date()
     @Persisted var endTime: Date = Date()
+    
+    @Persisted var exercises = List<Exercise>()
 }

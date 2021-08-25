@@ -29,7 +29,9 @@ class RoutineViewController: UIViewController {
         
         loadRoutines()
     }
-
+    
+    
+    //MARK: - Segues + preparation
     @IBAction func addRoutine(_ sender: UIBarButtonItem) {
         rowBeingEdited = nil
         performSegue(withIdentifier: "goToRoutineInput", sender: self)
@@ -64,10 +66,7 @@ class RoutineViewController: UIViewController {
     func loadRoutines() {
     
         self.routines = self.realm.objects(Routine.self)
-        
-        DispatchQueue.main.async {
-            self.routineTableView.reloadData()
-        }
+        self.routineTableView.reloadData()
     }
     
     func deleteRoutine(at indexPath: IndexPath) {

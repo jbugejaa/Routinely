@@ -8,9 +8,11 @@
 import UIKit
 import RealmSwift
 
+// TODO(Joshua): Finish mapping exercise data in table view cell to DB
+
 class ExercisesViewController: UIViewController {
     
-    @IBOutlet weak var exercisesTableView: UITableView!
+    @IBOutlet weak var exerciseTableView: UITableView!
     
     var realm = try! Realm()
     
@@ -21,10 +23,39 @@ class ExercisesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        exercisesTableView.rowHeight = 80.0
-        exercisesTableView.separatorStyle = .none
+        exerciseTableView.rowHeight = 132
+        exerciseTableView.register(UINib(nibName: "ExerciseCell",
+                                        bundle: nil), forCellReuseIdentifier: "ExerciseCell")
         
-        exercisesTableView.dataSource = self
+        loadExercises()
+    }
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        do {
+            try realm.write {
+                let newExercise = Exercise()
+
+                newExercise.name = ""
+                newExercise.numberOfSetsActual = 1
+                newExercise.numberOfSetsCurrent = 1
+                newExercise.numberOfRepsRangeCurrent.append(1)
+                newExercise.numberOfRepsRangeCurrent.append(1)
+                
+                realm.add(newExercise)
+
+                selectedRoutine?.exercises.append(newExercise)
+            }
+        } catch {
+            print("Error updating context, \(error)")
+        }
+        
+        loadExercises()
+    }
+    
+    //MARK: - Data manipulation methods
+    func loadExercises() {
+        exercises = selectedRoutine?.exercises.sorted(byKeyPath: "name", ascending: true)
+        exerciseTableView.reloadData()
     }
 }
 
