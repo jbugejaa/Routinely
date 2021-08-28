@@ -13,11 +13,11 @@ class Exercise: Object {
     @Persisted var name: String = ""
     @Persisted var weightInKg: String = ""
     
-    @Persisted var numberOfSetsActual: String = ""
-    @Persisted var numberOfRepsRangeActual: String = ""
+    @Persisted var setsActual: String = ""
+    @Persisted var repsActual: String = ""
     
-    @Persisted var numberOfSetsCurrent: String = ""
-    @Persisted var numberOfRepsRangeCurrent: String = ""
+    @Persisted var setsExpected: String = ""
+    @Persisted var repsExpected: String = ""
     
     var parentRoutine = LinkingObjects(fromType: Routine.self, property: "exercises")
 }

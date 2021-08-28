@@ -9,8 +9,6 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 
-// TODO(Joshua): Finish mapping exercise data in table view cell to DB
-
 class ExerciseViewController: UIViewController {
     
     @IBOutlet weak var exerciseTableView: UITableView!
@@ -27,60 +25,72 @@ class ExerciseViewController: UIViewController {
     
     var selectedRoutine: Routine?
     
-    
+    var cellBeingEdited: ExerciseCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.clearTableEditing))
+        cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButtonPressed))
         
         saveBarButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.saveButtonPressed))
         
         addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButtonPressed))
         navigationItem.rightBarButtonItem = addBarButton
-
         
         exerciseTableView.rowHeight = 132
         exerciseTableView.register(UINib(nibName: "ExerciseCell",
                                         bundle: nil), forCellReuseIdentifier: "ExerciseCell")
         
-        
         loadExercises()
     }
     
+    //MARK: - Navigation bar button methods
     @objc func addButtonPressed() {
         do {
             try realm.write {
                 let newExercise = Exercise()
 
                 newExercise.name = "Enter name..."
-                newExercise.numberOfSetsActual = "3"
-                newExercise.numberOfSetsCurrent = "3"
-                newExercise.numberOfRepsRangeCurrent = "5"
-                newExercise.numberOfRepsRangeCurrent = "5"
+                newExercise.setsActual = "3"
+                newExercise.repsActual = "3"
+                newExercise.setsExpected = "5"
+                newExercise.repsExpected = "5"
                 
                 realm.add(newExercise)
 
                 selectedRoutine?.exercises.append(newExercise)
             }
         } catch {
-            print("Error updating context, \(error)")
+            print("Error adding exercise, \(error)")
         }
         
         loadExercises()
     }
     
     @objc func saveButtonPressed() {
-        clearTableEditing()
+        if let cell = cellBeingEdited, let indexPath = exerciseTableView.indexPath(for: cell),
+           let exercise = exercises?[indexPath.row] {
+            do {
+                try realm.write {
+                    exercise.name = cell.exerciseNameTextField.text ?? ""
+                    exercise.repsExpected = cell.repsExpectedTextField.text ?? ""
+                    exercise.setsExpected = cell.setsExpectedTextField.text ?? ""
+                    exercise.repsActual = cell.repsActualTextField.text ?? ""
+                    exercise.setsActual = cell.setsActualTextField.text ?? ""
+                }
+            } catch {
+                print("Error updating exercise, \(error)")
+            }
+        }
+        cancelButtonPressed()
     }
     
-    @objc func clearTableEditing() {
+    @objc func cancelButtonPressed() {
         for visibleCell in exerciseTableView.visibleCells {
             if let cell = visibleCell as? ExerciseCell {
                 cell.enableEditing(isEditing: false)
                 
                 self.navigationItem.leftBarButtonItem = nil
-                
                 self.navigationItem.rightBarButtonItem = addBarButton
             }
         }
@@ -106,6 +116,15 @@ extension ExerciseViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseCell", for: indexPath) as! ExerciseCell
         cell.delegate = self
+        
+        if let safeExercises = exercises {
+            cell.exerciseNameTextField.text = safeExercises[indexPath.row].name
+            cell.setsExpectedTextField.text = safeExercises[indexPath.row].setsExpected
+            cell.repsExpectedTextField.text = safeExercises[indexPath.row].repsExpected
+            cell.setsActualTextField.text = safeExercises[indexPath.row].setsActual
+            cell.repsActualTextField.text = safeExercises[indexPath.row].repsActual
+        }
+        
         return cell
     }
 }
@@ -145,11 +164,11 @@ extension ExerciseViewController: SwipeTableViewCellDelegate {
     }
     
     func editExercise(on cell: ExerciseCell) {
-        clearTableEditing()
+        cancelButtonPressed()
         self.navigationItem.leftBarButtonItem = cancelBarButton
         self.navigationItem.rightBarButtonItem = saveBarButton
         
-        
         cell.enableEditing(isEditing: true)
+        cellBeingEdited = cell
     }
 }
