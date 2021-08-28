@@ -46,7 +46,7 @@ class RoutineViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToExercises" {
             
-            let destinationVC = segue.destination as! ExercisesViewController
+            let destinationVC = segue.destination as! ExerciseViewController
     
             if let indexPath = routineTableView.indexPathForSelectedRow {
                 destinationVC.selectedRoutine = routines?[indexPath.row]

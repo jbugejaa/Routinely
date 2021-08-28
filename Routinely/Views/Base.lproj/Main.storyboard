@@ -54,10 +54,10 @@
             </objects>
             <point key="canvasLocation" x="183" y="-56"/>
         </scene>
-        <!--Exercises View Controller-->
+        <!--Exercise View Controller-->
         <scene sceneID="gyP-yq-6o7">
             <objects>
-                <tableViewController id="Gv7-0q-Hty" customClass="ExercisesViewController" customModule="Routinely" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Gv7-0q-Hty" customClass="ExerciseViewController" customModule="Routinely" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RlY-yU-upp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,13 +67,7 @@
                             <outlet property="delegate" destination="Gv7-0q-Hty" id="iFA-XG-6lp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="h4t-kp-YbY">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="u2O-ZH-4D6">
-                            <connections>
-                                <action selector="addButtonPressed:" destination="Gv7-0q-Hty" id="Ewr-WF-gdY"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="h4t-kp-YbY"/>
                     <connections>
                         <outlet property="exerciseTableView" destination="RlY-yU-upp" id="68M-kP-FmJ"/>
                     </connections>
