@@ -13,6 +13,7 @@
 		3A0D40C426CF8F6300DC26F5 /* RoutineInputCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0D40C326CF8F6300DC26F5 /* RoutineInputCellData.swift */; };
 		3A398A5826CCAC7E0069CA49 /* RoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A398A5726CCAC7E0069CA49 /* RoutineCell.swift */; };
 		3A398A6026CCC6900069CA49 /* RoutineInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A398A5F26CCC6900069CA49 /* RoutineInputViewController.swift */; };
+		3A3FE8E126DA0DD70005655C /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8E026DA0DD70005655C /* Helper.swift */; };
 		3A45C60126CB46D0007A9E53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C60026CB46D0007A9E53 /* AppDelegate.swift */; };
 		3A45C60326CB46D0007A9E53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C60226CB46D0007A9E53 /* SceneDelegate.swift */; };
 		3A45C60526CB46D0007A9E53 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C60426CB46D0007A9E53 /* RoutineViewController.swift */; };
@@ -56,6 +57,7 @@
 		3A0D40C326CF8F6300DC26F5 /* RoutineInputCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineInputCellData.swift; sourceTree = "<group>"; };
 		3A398A5726CCAC7E0069CA49 /* RoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCell.swift; sourceTree = "<group>"; };
 		3A398A5F26CCC6900069CA49 /* RoutineInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineInputViewController.swift; sourceTree = "<group>"; };
+		3A3FE8E026DA0DD70005655C /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		3A45C5FD26CB46D0007A9E53 /* Routinely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A45C60026CB46D0007A9E53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A45C60226CB46D0007A9E53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				3AEFF07926CB7D0300D533E8 /* RealmManager.swift */,
+				3A3FE8E026DA0DD70005655C /* Helper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				3A45C60526CB46D0007A9E53 /* RoutineViewController.swift in Sources */,
 				3A45C60126CB46D0007A9E53 /* AppDelegate.swift in Sources */,
 				3A398A6026CCC6900069CA49 /* RoutineInputViewController.swift in Sources */,
+				3A3FE8E126DA0DD70005655C /* Helper.swift in Sources */,
 				3A05909426CB9A55001D7A43 /* Exercise.swift in Sources */,
 				3A45C60326CB46D0007A9E53 /* SceneDelegate.swift in Sources */,
 			);

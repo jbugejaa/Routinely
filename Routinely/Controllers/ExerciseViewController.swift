@@ -89,7 +89,7 @@ class ExerciseViewController: UIViewController {
         for visibleCell in exerciseTableView.visibleCells {
             if let cell = visibleCell as? ExerciseCell {
                 cell.enableEditing(isEditing: false)
-                
+                                
                 self.navigationItem.leftBarButtonItem = nil
                 self.navigationItem.rightBarButtonItem = addBarButton
             }
@@ -102,8 +102,10 @@ class ExerciseViewController: UIViewController {
         exerciseTableView.reloadData()
     }
     
-    func updateExercise() {
-        
+    func deleteExercise(at indexPath: IndexPath) {
+        if let exerciseForDeletion = self.exercises?[indexPath.row] {
+            RealmManager.delete(exerciseForDeletion, from: realm)
+        }
     }
 }
 
@@ -139,24 +141,47 @@ extension ExerciseViewController: UITableViewDelegate {
 //MARK: - SwipeTableViewCellDelegate methods
 extension ExerciseViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        guard orientation == .left else { return nil }
-
-        let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
-            if let cell = tableView.cellForRow(at: indexPath) as? ExerciseCell {
-                self.editExercise(on: cell)
-            }
-
-        }
-        editAction.backgroundColor = #colorLiteral(red: 0.1411764706, green: 0.6274509804, blue: 0.9294117647, alpha: 1)
-        editAction.image = UIImage(systemName: "square.and.pencil")
         
-        return [editAction]
+        if orientation == .right {
+            
+            let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+                Helper.displayDeletionConfirmationAlert(self, itemNameBeingDeleted: "Exercise", completion: { deleteTapped in
+                    if deleteTapped {
+                        action.fulfill(with: .delete)
+                        self.deleteExercise(at: indexPath)
+                        self.exerciseTableView.deleteRows(at: [indexPath], with: .left)
+                    } else {
+                        action.fulfill(with: .reset)
+                    }
+                })
+            }
+            deleteAction.image = UIImage(systemName: "trash")
+            
+            return [deleteAction]
+        } else if orientation == .left {
+            let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
+                if let cell = tableView.cellForRow(at: indexPath) as? ExerciseCell {
+                    self.editExercise(on: cell)
+                }
+
+            }
+            editAction.backgroundColor = #colorLiteral(red: 0.1411764706, green: 0.6274509804, blue: 0.9294117647, alpha: 1)
+            editAction.image = UIImage(systemName: "square.and.pencil")
+            editAction.hidesWhenSelected = true
+            
+            return [editAction]
+        }
+
+        return nil
     }
-    
+        
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeOptions()
         
-        if orientation == .left {
+        if orientation == .right {
+            cancelButtonPressed()
+            options.expansionStyle = .selection
+        } else if orientation == .left {
             options.expansionStyle = .selection
         }
         

@@ -119,7 +119,7 @@ extension RoutineViewController: SwipeTableViewCellDelegate {
         if orientation == .right {
             
             let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
-                self.displayConfirmationAlert { deleteTapped in
+                Helper.displayDeletionConfirmationAlert(self, itemNameBeingDeleted: "Routine", completion: { deleteTapped in
                     if deleteTapped {
                         action.fulfill(with: .delete)
                         self.deleteRoutine(at: indexPath)
@@ -127,7 +127,7 @@ extension RoutineViewController: SwipeTableViewCellDelegate {
                     } else {
                         action.fulfill(with: .reset)
                     }
-                }
+                })
             }
             deleteAction.image = UIImage(systemName: "trash")
             
@@ -148,34 +148,11 @@ extension RoutineViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
         var options = SwipeOptions()
         
-        if orientation == .right {
-            options.expansionStyle = .selection
-        } else if orientation == .left {
+        if orientation == .right ||  orientation == .left{
             options.expansionStyle = .selection
         }
         
         return options
-    }
-    
-    // Create delete confirmation alert with handler
-    private func displayConfirmationAlert(completion: @escaping (Bool) -> Void) {
-        
-        let alert = UIAlertController(title: nil, message: "Are you sure you want to delete this routine?", preferredStyle: .actionSheet)
-        
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (deleteAction) in
-            alert.dismiss(animated: true, completion: nil)
-            completion(true)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (cancelAction) in
-            alert.dismiss(animated: true, completion: nil)
-            completion(false)
-        }
-        
-        alert.addAction(deleteAction)
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true, completion: nil)
     }
 }
 
