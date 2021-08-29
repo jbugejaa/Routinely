@@ -55,6 +55,7 @@ class ExerciseViewController: UIViewController {
                 newExercise.repsActual = "3"
                 newExercise.setsExpected = "5"
                 newExercise.repsExpected = "5"
+                newExercise.weightInKg = "60"
                 
                 realm.add(newExercise)
 
@@ -70,9 +71,11 @@ class ExerciseViewController: UIViewController {
     @objc func saveButtonPressed() {
         if let cell = cellBeingEdited, let indexPath = exerciseTableView.indexPath(for: cell),
            let exercise = exercises?[indexPath.row] {
+            print("Editing: \(cell)")
             do {
                 try realm.write {
                     exercise.name = cell.exerciseNameTextField.text ?? ""
+                    exercise.weightInKg = cell.weightTextField.text ?? ""
                     exercise.repsExpected = cell.repsExpectedTextField.text ?? ""
                     exercise.setsExpected = cell.setsExpectedTextField.text ?? ""
                     exercise.repsActual = cell.repsActualTextField.text ?? ""
@@ -94,6 +97,7 @@ class ExerciseViewController: UIViewController {
                 self.navigationItem.rightBarButtonItem = addBarButton
             }
         }
+        exerciseTableView.reloadData()
     }
     
     //MARK: - Data manipulation methods
@@ -121,6 +125,7 @@ extension ExerciseViewController: UITableViewDataSource {
         
         if let safeExercises = exercises {
             cell.exerciseNameTextField.text = safeExercises[indexPath.row].name
+            cell.weightTextField.text = safeExercises[indexPath.row].weightInKg
             cell.setsExpectedTextField.text = safeExercises[indexPath.row].setsExpected
             cell.repsExpectedTextField.text = safeExercises[indexPath.row].repsExpected
             cell.setsActualTextField.text = safeExercises[indexPath.row].setsActual
@@ -179,7 +184,6 @@ extension ExerciseViewController: SwipeTableViewCellDelegate {
         var options = SwipeOptions()
         
         if orientation == .right {
-            cancelButtonPressed()
             options.expansionStyle = .selection
         } else if orientation == .left {
             options.expansionStyle = .selection
