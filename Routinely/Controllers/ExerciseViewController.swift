@@ -21,8 +21,8 @@ class ExerciseViewController: UIViewController {
     
     var realm = try! Realm()
     
-    var exercises: Results<Exercise>?
-    
+    var exerciseModel = ExerciseModel()
+        
     var selectedRoutine: Routine?
     
     var cellBeingEdited: ExerciseCell?
@@ -48,44 +48,14 @@ class ExerciseViewController: UIViewController {
     
     //MARK: - Navigation bar button methods
     @objc func addButtonPressed() {
-        do {
-            try realm.write {
-                let newExercise = Exercise()
+        exerciseModel.addExercise()
 
-                newExercise.name = "Enter name..."
-                newExercise.setsActual = "3"
-                newExercise.repsActual = "3"
-                newExercise.setsExpected = "5"
-                newExercise.repsExpected = "5"
-                newExercise.weightInKg = "60"
-                
-                realm.add(newExercise)
-
-                selectedRoutine?.exercises.append(newExercise)
-            }
-        } catch {
-            print("Error adding exercise, \(error)")
-        }
-        
         loadExercises()
     }
     
     @objc func saveButtonPressed() {
-        if let cell = cellBeingEdited, let indexPath = exerciseTableView.indexPath(for: cell),
-           let exercise = exercises?[indexPath.row] {
-            print("Editing: \(cell)")
-            do {
-                try realm.write {
-                    exercise.name = cell.exerciseNameTextField.text ?? ""
-                    exercise.weightInKg = cell.weightTextField.text ?? ""
-                    exercise.repsExpected = cell.repsExpectedTextField.text ?? ""
-                    exercise.setsExpected = cell.setsExpectedTextField.text ?? ""
-                    exercise.repsActual = cell.repsActualTextField.text ?? ""
-                    exercise.setsActual = cell.setsActualTextField.text ?? ""
-                }
-            } catch {
-                print("Error updating exercise, \(error)")
-            }
+        if let cell = cellBeingEdited, let indexPath = exerciseTableView.indexPath(for: cell) {
+            exerciseModel.saveExercise(with: cell, with: indexPath)
         }
         cancelButtonPressed()
     }
@@ -104,44 +74,28 @@ class ExerciseViewController: UIViewController {
     
     //MARK: - Data manipulation methods
     func loadExercises() {
-        exercises = selectedRoutine?.exercises.sorted(byKeyPath: "name", ascending: true)
+        exerciseModel.exercises = selectedRoutine?.exercises
         exerciseTableView.reloadData()
     }
     
     func deleteExercise(at indexPath: IndexPath) {
-        if let exerciseForDeletion = self.exercises?[indexPath.row] {
-            RealmManager.delete(exerciseForDeletion, from: realm)
-        }
+        exerciseModel.deleteExercise(at: indexPath)
     }
 }
 
 //MARK: - UITableViewDataSource methods
 extension ExerciseViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return exercises?.count ?? 1
+        return exerciseModel.exercises?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExerciseCell", for: indexPath) as! ExerciseCell
         cell.delegate = self
         
-        if let safeExercises = exercises {
-            cell.exerciseNameTextField.text = safeExercises[indexPath.row].name
-            cell.weightTextField.text = safeExercises[indexPath.row].weightInKg
-            cell.setsExpectedTextField.text = safeExercises[indexPath.row].setsExpected
-            cell.repsExpectedTextField.text = safeExercises[indexPath.row].repsExpected
-            cell.setsActualTextField.text = safeExercises[indexPath.row].setsActual
-            cell.repsActualTextField.text = safeExercises[indexPath.row].repsActual
-        }
+        exerciseModel.populateNewExerciseCell(withCell: cell, withIndexPath: indexPath)
         
         return cell
-    }
-}
-
-//MARK: - UITableViewDelegate methods
-extension ExerciseViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected row: \(indexPath.row)!!")
     }
 }
 
@@ -168,7 +122,7 @@ extension ExerciseViewController: SwipeTableViewCellDelegate {
         } else if orientation == .left {
             let editAction = SwipeAction(style: .default, title: "Edit") { action, indexPath in
                 if let cell = tableView.cellForRow(at: indexPath) as? ExerciseCell {
-                    self.editExercise(on: cell)
+                    self.enableEditing(on: cell)
                 }
 
             }
@@ -194,7 +148,7 @@ extension ExerciseViewController: SwipeTableViewCellDelegate {
         return options
     }
     
-    func editExercise(on cell: ExerciseCell) {
+    func enableEditing(on cell: ExerciseCell) {
         cancelButtonPressed()
         self.navigationItem.leftBarButtonItem = cancelBarButton
         self.navigationItem.rightBarButtonItem = saveBarButton
