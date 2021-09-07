@@ -41,6 +41,9 @@ class ExerciseViewController: UIViewController {
         exerciseTableView.register(UINib(nibName: "ExerciseCell",
                                         bundle: nil), forCellReuseIdentifier: "ExerciseCell")
         
+        exerciseTableView.dragInteractionEnabled = true
+        exerciseTableView.dragDelegate = self
+        
         navigationItem.title = selectedRoutine?.name
         
         loadExercises()
@@ -99,6 +102,13 @@ extension ExerciseViewController: UITableViewDataSource {
     }
 }
 
+//MARK: - UITableViewDelegate methods
+extension ExerciseViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        exerciseModel.moveCell(from: sourceIndexPath, to: destinationIndexPath)
+    }
+}
+
 //MARK: - SwipeTableViewCellDelegate methods
 extension ExerciseViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
@@ -148,12 +158,19 @@ extension ExerciseViewController: SwipeTableViewCellDelegate {
         return options
     }
     
-    func enableEditing(on cell: ExerciseCell) {
+    private func enableEditing(on cell: ExerciseCell) {
         cancelButtonPressed()
         self.navigationItem.leftBarButtonItem = cancelBarButton
         self.navigationItem.rightBarButtonItem = saveBarButton
         
         cell.enableEditing(isEditing: true)
         cellBeingEdited = cell
+    }
+}
+
+//MARK: - UITableViewDragDelegate methods
+extension ExerciseViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return exerciseModel.dragItems(for: indexPath)
     }
 }

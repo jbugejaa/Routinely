@@ -19,6 +19,7 @@ struct RoutineModel {
         dateFormatter.dateFormat = "h:mm a"
     }
     
+    //MARK: - Data manipulation methods (routine view)
     func deleteRoutine(at indexPath: IndexPath) {
         if let routineForDeletion = routines?[indexPath.row] {
            do {
@@ -36,6 +37,7 @@ struct RoutineModel {
         routines = self.realm.objects(RoutineList.self).first!.routines
     }
     
+    //MARK: - Setup methods (routine view)
     func populateNewRoutineCell(withCell cell: RoutineCell, withIndexPath indexPath: IndexPath) {
         
         cell.routineNameLabel.text = routines?[indexPath.row].name ?? "No Routines Added Yet"
@@ -50,6 +52,7 @@ struct RoutineModel {
         }
     }
     
+    //MARK: - Drag n' drop methods
     func moveCell(from sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         do {
             try realm.write({
@@ -66,7 +69,6 @@ struct RoutineModel {
         return [ dragItem ]
     }
     
-    
     //MARK: - Routine Input Modal UI
     var routineInputCellDataArray: [RoutineInputCellData] = []
     
@@ -78,6 +80,7 @@ struct RoutineModel {
         return dateFormatter.date(from: self.routineInputCellDataArray[2].subtitle)!
     }
     
+    //MARK: - Setup methods (routine input view)
     mutating func setupInputUI(_ routineBeingEdited: Routine?) {
         let startTime = (routineBeingEdited != nil) ? dateFormatter.string(from: routineBeingEdited!.startTime) : "12:00 PM"
         let endTime = (routineBeingEdited != nil) ? dateFormatter.string(from: routineBeingEdited!.endTime) : "12:00 PM"
@@ -107,11 +110,8 @@ struct RoutineModel {
             }
         }
     }
-    
-    mutating func updateDayTimeCell(with indexPath: IndexPath, with dayOrTime: String) {
-        routineInputCellDataArray[indexPath.row].subtitle = dayOrTime
-    }
-    
+ 
+    //MARK: - Data manipulation methods (routine input view)
     func updateRoutine(from existingRoutine: Routine, with routineName: String) {
         do {
             try realm.write {
@@ -140,5 +140,10 @@ struct RoutineModel {
         } catch {
             print("Error saving context, \(error)")
         }
+    }
+    
+    //MARK: - Updating methods
+    mutating func updateDayTimeCell(with indexPath: IndexPath, with dayOrTime: String) {
+        routineInputCellDataArray[indexPath.row].subtitle = dayOrTime
     }
 }
