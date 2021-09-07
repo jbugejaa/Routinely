@@ -88,7 +88,7 @@ extension RoutineViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineCell", for: indexPath) as! RoutineCell
         
-        routineModel.populateNewCell(withCell: cell, withIndexPath: indexPath)
+        routineModel.populateNewRoutineCell(withCell: cell, withIndexPath: indexPath)
         
         cell.delegate = self
     
