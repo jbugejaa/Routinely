@@ -20,7 +20,7 @@
                         <rect key="frame" x="10" y="0.0" width="620" height="132"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="-41" translatesAutoresizingMaskIntoConstraints="NO" id="sKa-41-9cv" userLabel="Left Stack">
-                                <rect key="frame" x="0.0" y="0.0" width="374.5" height="132"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="132"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ALa-XV-z2e">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="86.5"/>
@@ -34,7 +34,7 @@
                                             </view>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Bicep Curls" borderStyle="roundedRect" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="Owb-wk-ux8">
                                                 <rect key="frame" x="0.0" y="10" width="240" height="46.5"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="31"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hBn-jE-8oG">
@@ -47,14 +47,14 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="uvx-ow-Zzb">
-                                        <rect key="frame" x="0.0" y="45.5" width="114.5" height="86.5"/>
+                                        <rect key="frame" x="0.0" y="45.5" width="111.5" height="86.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" text="3" borderStyle="roundedRect" textAlignment="right" minimumFontSize="27" translatesAutoresizingMaskIntoConstraints="NO" id="mXa-mK-J0g">
-                                                <rect key="frame" x="0.0" y="22.5" width="45" height="42"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" text="3" borderStyle="roundedRect" textAlignment="right" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="mXa-mK-J0g">
+                                                <rect key="frame" x="0.0" y="25.5" width="45" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="Zyx-Ae-Y1I"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCb-xN-Tif">
@@ -63,13 +63,14 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" text="5" borderStyle="roundedRect" minimumFontSize="27" translatesAutoresizingMaskIntoConstraints="NO" id="sPy-jp-5ln">
-                                                <rect key="frame" x="69.5" y="22.5" width="45" height="42"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" text="5" borderStyle="roundedRect" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="sPy-jp-5ln">
+                                                <rect key="frame" x="69.5" y="25.5" width="42" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                             </textField>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="mXa-mK-J0g" firstAttribute="leading" secondItem="uvx-ow-Zzb" secondAttribute="leading" id="DaK-cx-wvR"/>
                                             <constraint firstItem="sPy-jp-5ln" firstAttribute="leading" secondItem="yCb-xN-Tif" secondAttribute="trailing" constant="6" id="b3z-lx-GUI"/>
                                             <constraint firstItem="yCb-xN-Tif" firstAttribute="leading" secondItem="mXa-mK-J0g" secondAttribute="trailing" constant="6" id="yRr-Rr-eM6"/>
                                         </constraints>
@@ -77,18 +78,18 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="yUp-qa-fyO" userLabel="Right Stack">
-                                <rect key="frame" x="374.5" y="0.0" width="245.5" height="132"/>
+                                <rect key="frame" x="375" y="0.0" width="245" height="132"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="bottom" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="Ra9-am-EUQ">
-                                        <rect key="frame" x="131" y="0.0" width="114.5" height="54.5"/>
+                                        <rect key="frame" x="138.5" y="0.0" width="106.5" height="54.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" text="60" borderStyle="roundedRect" textAlignment="center" minimumFontSize="27" translatesAutoresizingMaskIntoConstraints="NO" id="Zhm-tw-Bbd">
-                                                <rect key="frame" x="0.0" y="12.5" width="70.5" height="42"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" text="60" borderStyle="roundedRect" textAlignment="center" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="Zhm-tw-Bbd">
+                                                <rect key="frame" x="0.0" y="18.5" width="62.5" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weightKgIcon" translatesAutoresizingMaskIntoConstraints="NO" id="W4m-sg-B0o">
-                                                <rect key="frame" x="77.5" y="17.5" width="37" height="37"/>
+                                                <rect key="frame" x="69.5" y="17.5" width="37" height="37"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="37" id="OzN-nd-DvJ"/>
@@ -98,14 +99,14 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="b06-Cz-VLj">
-                                        <rect key="frame" x="88" y="77.5" width="157.5" height="54.5"/>
+                                        <rect key="frame" x="90.5" y="77.5" width="154.5" height="54.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" text="3" borderStyle="roundedRect" textAlignment="right" minimumFontSize="27" translatesAutoresizingMaskIntoConstraints="NO" id="wzw-1X-zi9">
-                                                <rect key="frame" x="0.0" y="0.0" width="45" height="42"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" text="3" borderStyle="roundedRect" textAlignment="right" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="wzw-1X-zi9">
+                                                <rect key="frame" x="0.0" y="0.0" width="45" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="45" id="Egc-mk-Cev"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8f-M9-AH9">
@@ -114,13 +115,13 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" text="5" borderStyle="roundedRect" minimumFontSize="27" translatesAutoresizingMaskIntoConstraints="NO" id="tGK-Yk-NXu">
-                                                <rect key="frame" x="69.5" y="0.0" width="45" height="42"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="27"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" text="5" borderStyle="roundedRect" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="tGK-Yk-NXu">
+                                                <rect key="frame" x="69.5" y="0.0" width="42" height="36"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timer" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="IQ1-Va-xR6">
-                                                <rect key="frame" x="120.5" y="1" width="37" height="36"/>
+                                                <rect key="frame" x="117.5" y="1" width="37" height="36"/>
                                                 <color key="tintColor" systemColor="labelColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="37" id="81Y-yo-kS0"/>

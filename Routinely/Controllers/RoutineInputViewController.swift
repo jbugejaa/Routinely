@@ -127,7 +127,14 @@ class RoutineInputViewController: UIViewController {
         newRoutine.startTime = startTimeDate
         newRoutine.endTime = endTimeDate
 
-        RealmManager.save(newRoutine, to: self.realm)
+        do {
+            try self.realm.write {
+                self.realm.add(newRoutine)
+                self.realm.objects(RoutineList.self).first!.routines.append(newRoutine)
+            }
+        } catch {
+            print("Error saving context, \(error)")
+        }
     }
 }
 

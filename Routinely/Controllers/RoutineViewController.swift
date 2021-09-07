@@ -15,7 +15,7 @@ class RoutineViewController: UIViewController {
     
     @IBOutlet weak var routineTableView: UITableView!
     
-    var routines: Results<Routine>?
+    var routines: List<Routine>?
     
     var rowBeingEdited: Int?
 
@@ -26,6 +26,9 @@ class RoutineViewController: UIViewController {
                                         bundle: nil), forCellReuseIdentifier: "RoutineCell")
         routineTableView.rowHeight = 80.0
         routineTableView.separatorStyle = .none
+        
+        routineTableView.dragInteractionEnabled = true
+        routineTableView.dragDelegate = self
         
         loadRoutines()
     }
@@ -64,14 +67,20 @@ class RoutineViewController: UIViewController {
     
     //MARK: - Data Manipulation methods
     func loadRoutines() {
-    
-        self.routines = self.realm.objects(Routine.self)
+        self.routines = self.realm.objects(RoutineList.self).first!.routines
         self.routineTableView.reloadData()
     }
     
     func deleteRoutine(at indexPath: IndexPath) {
         if let routineForDeletion = self.routines?[indexPath.row] {
-            RealmManager.delete(routineForDeletion, from: realm)
+            do {
+                try self.realm.write {
+                    routines?.remove(at: indexPath.row)
+                    self.realm.delete(routineForDeletion)
+                }
+            } catch {
+                print("Error deleting routine, \(error)")
+            }
         }
     }
 }
@@ -109,6 +118,16 @@ extension RoutineViewController: UITableViewDataSource {
 extension RoutineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToExercises", sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        do {
+            try realm.write({
+                routines?.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
+            })
+        } catch {
+            print("Error moving routine from \(sourceIndexPath.row) to \(destinationIndexPath.row), \(error)")
+        }
     }
 }
 
@@ -160,5 +179,18 @@ extension RoutineViewController: SwipeTableViewCellDelegate {
 extension RoutineViewController: RoutineInputViewDelegate {
     func didUpdateRoutines(_ routineInputViewController: RoutineInputViewController) {
         loadRoutines()
+    }
+}
+
+//MARK: - UITableViewDragDelegate methods
+extension RoutineViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return dragItems(for: indexPath)
+    }
+    
+    private func dragItems(for indexPath: IndexPath) -> [UIDragItem] {
+        let dragItem = UIDragItem(itemProvider: NSItemProvider())
+        dragItem.localObject = routines?[indexPath.row]
+        return [ dragItem ]
     }
 }

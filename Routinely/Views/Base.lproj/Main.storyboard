@@ -54,7 +54,7 @@
             </objects>
             <point key="canvasLocation" x="183" y="-56"/>
         </scene>
-        <!--Exercise View Controller-->
+        <!--Exercises-->
         <scene sceneID="gyP-yq-6o7">
             <objects>
                 <tableViewController id="Gv7-0q-Hty" customClass="ExerciseViewController" customModule="Routinely" customModuleProvider="target" sceneMemberID="viewController">
@@ -67,7 +67,7 @@
                             <outlet property="delegate" destination="Gv7-0q-Hty" id="iFA-XG-6lp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="h4t-kp-YbY"/>
+                    <navigationItem key="navigationItem" title="Exercises" id="h4t-kp-YbY"/>
                     <connections>
                         <outlet property="exerciseTableView" destination="RlY-yU-upp" id="68M-kP-FmJ"/>
                     </connections>

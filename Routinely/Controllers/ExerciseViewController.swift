@@ -41,6 +41,8 @@ class ExerciseViewController: UIViewController {
         exerciseTableView.register(UINib(nibName: "ExerciseCell",
                                         bundle: nil), forCellReuseIdentifier: "ExerciseCell")
         
+        navigationItem.title = selectedRoutine?.name
+        
         loadExercises()
     }
     

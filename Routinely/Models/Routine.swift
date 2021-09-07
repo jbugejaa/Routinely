@@ -16,3 +16,7 @@ class Routine: Object {
     
     @Persisted var exercises = List<Exercise>()
 }
+
+class RoutineList: Object {
+    @Persisted var routines = List<Routine>()
+}
