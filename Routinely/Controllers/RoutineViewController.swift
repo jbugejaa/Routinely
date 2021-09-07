@@ -13,9 +13,9 @@ class RoutineViewController: UIViewController {
     
     var realm = try! Realm()
     
-    @IBOutlet weak var routineTableView: UITableView!
+    var routineModel = RoutineModel()
     
-    var routines: List<Routine>?
+    @IBOutlet weak var routineTableView: UITableView!
     
     var rowBeingEdited: Int?
 
@@ -52,13 +52,13 @@ class RoutineViewController: UIViewController {
             let destinationVC = segue.destination as! ExerciseViewController
     
             if let indexPath = routineTableView.indexPathForSelectedRow {
-                destinationVC.selectedRoutine = routines?[indexPath.row]
+                destinationVC.selectedRoutine = routineModel.routines?[indexPath.row]
             }
         } else if segue.identifier == "goToRoutineInput" {
             let destinationVC = segue.destination as! RoutineInputViewController
             
             if let row = rowBeingEdited {
-                destinationVC.routineBeingEdited = routines?[row]
+                destinationVC.routineBeingEdited = routineModel.routines?[row]
             }
             
             destinationVC.delegate = self
@@ -67,28 +67,19 @@ class RoutineViewController: UIViewController {
     
     //MARK: - Data Manipulation methods
     func loadRoutines() {
-        self.routines = self.realm.objects(RoutineList.self).first!.routines
+        routineModel.loadRoutines()
         self.routineTableView.reloadData()
     }
     
     func deleteRoutine(at indexPath: IndexPath) {
-        if let routineForDeletion = self.routines?[indexPath.row] {
-            do {
-                try self.realm.write {
-                    routines?.remove(at: indexPath.row)
-                    self.realm.delete(routineForDeletion)
-                }
-            } catch {
-                print("Error deleting routine, \(error)")
-            }
-        }
+        routineModel.deleteRoutine(at: indexPath)
     }
 }
 
 //MARK: - UITableViewDataSource methods
 extension RoutineViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return routines?.count ?? 1
+        return routineModel.routines?.count ?? 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -97,17 +88,8 @@ extension RoutineViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "RoutineCell", for: indexPath) as! RoutineCell
         
-        cell.routineNameLabel.text = routines?[indexPath.row].name ?? "No Routines Added Yet"
-                
-        if let day = routines?[indexPath.row].day, let startTime = routines?[indexPath.row].startTime, let endTime = routines?[indexPath.row].endTime {
-            let startTimeStr = dateformat.string(from: startTime)
-            let endTimeStr = dateformat.string(from: endTime)
-            
-            cell.dayAndTimeLabel.text = "\(day) | \(startTimeStr) - \(endTimeStr)"
-        } else {
-            print("Error getting start/end times")
-        }
-
+        routineModel.populateNewCell(withCell: cell, withIndexPath: indexPath)
+        
         cell.delegate = self
     
         return cell
@@ -121,13 +103,7 @@ extension RoutineViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        do {
-            try realm.write({
-                routines?.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
-            })
-        } catch {
-            print("Error moving routine from \(sourceIndexPath.row) to \(destinationIndexPath.row), \(error)")
-        }
+        routineModel.moveCell(from: sourceIndexPath, to: destinationIndexPath)
     }
 }
 
@@ -185,12 +161,6 @@ extension RoutineViewController: RoutineInputViewDelegate {
 //MARK: - UITableViewDragDelegate methods
 extension RoutineViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        return dragItems(for: indexPath)
-    }
-    
-    private func dragItems(for indexPath: IndexPath) -> [UIDragItem] {
-        let dragItem = UIDragItem(itemProvider: NSItemProvider())
-        dragItem.localObject = routines?[indexPath.row]
-        return [ dragItem ]
+        return routineModel.dragItems(for: indexPath)
     }
 }
