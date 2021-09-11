@@ -29,6 +29,19 @@ struct Helper {
         
         vc.present(alert, animated: true, completion: nil)
     }
+    
+    //MARK: - Button animation on press
+    static func animatePress(on button: UIButton) {
+        UIButton.animate(withDuration: 0.2,
+            animations: {
+                button.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)
+            },
+            completion: { finish in
+            UIButton.animate(withDuration: 0.2, animations: {
+                button.transform = CGAffineTransform.identity
+            })
+        })
+    }
 }
 
 //MARK: - Create extension method for UITextField to set maxLength of field

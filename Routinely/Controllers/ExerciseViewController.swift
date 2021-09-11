@@ -51,9 +51,10 @@ class ExerciseViewController: UIViewController {
     
     //MARK: - Navigation bar button methods
     @objc func addButtonPressed() {
-        exerciseModel.addExercise()
+        performSegue(withIdentifier: "goToExerciseInput", sender: self)
+//        exerciseModel.addExercise()
 
-        loadExercises()
+//        loadExercises()
     }
     
     @objc func saveButtonPressed() {
