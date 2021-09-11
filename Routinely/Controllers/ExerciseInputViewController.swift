@@ -8,11 +8,19 @@
 import UIKit
 import RealmSwift
 
+protocol ExerciseInputViewDelegate {
+    func didAddExercise(_ exerciseInputViewController: ExerciseInputViewController)
+}
+
 class ExerciseInputViewController: UIViewController {
     @IBOutlet weak var selectionButtonOne: UIButton!
     @IBOutlet weak var selectionButtonTwo: UIButton!
     @IBOutlet weak var selectionButtonThree: UIButton!
     @IBOutlet weak var selectionButtonFour: UIButton!
+    
+    var delegate: ExerciseInputViewDelegate?
+    
+    var exerciseModel: ExerciseModel?
     
     var selectionButtons: [UIView] = []
     
@@ -38,7 +46,6 @@ class ExerciseInputViewController: UIViewController {
         Helper.animatePress(on: sender)
         
         selectedButton = sender
-        print("\(sender.currentTitle!) button pressed")
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
@@ -46,7 +53,8 @@ class ExerciseInputViewController: UIViewController {
     }
     @IBAction func doneButtonPressed(_ sender: UIButton) {
         dismiss(animated: true) {
-            // handler
+            self.exerciseModel?.addExercise()
+            self.delegate?.didAddExercise(self)
         }
     }
 }

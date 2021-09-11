@@ -49,12 +49,19 @@ class ExerciseViewController: UIViewController {
         loadExercises()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToExerciseInput" {
+            
+            let destinationVC = segue.destination as! ExerciseInputViewController
+            
+            destinationVC.exerciseModel = exerciseModel
+            destinationVC.delegate = self
+        }
+    }
+    
     //MARK: - Navigation bar button methods
     @objc func addButtonPressed() {
         performSegue(withIdentifier: "goToExerciseInput", sender: self)
-//        exerciseModel.addExercise()
-
-//        loadExercises()
     }
     
     @objc func saveButtonPressed() {
@@ -173,5 +180,12 @@ extension ExerciseViewController: SwipeTableViewCellDelegate {
 extension ExerciseViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         return exerciseModel.dragItems(for: indexPath)
+    }
+}
+
+//MARK: - ExerciseInputViewDelegate methods
+extension ExerciseViewController: ExerciseInputViewDelegate {
+    func didAddExercise(_ exerciseInputViewController: ExerciseInputViewController) {
+        loadExercises()
     }
 }
