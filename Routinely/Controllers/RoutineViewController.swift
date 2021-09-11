@@ -61,6 +61,7 @@ class RoutineViewController: UIViewController {
                 destinationVC.routineBeingEdited = routineModel.routines?[row]
             }
             
+            destinationVC.routineModel = routineModel
             destinationVC.delegate = self
         }
     }

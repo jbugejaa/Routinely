@@ -16,7 +16,7 @@ class RoutineInputViewController: UIViewController {
     
     var realm = try! Realm()
     
-    var routineModel = RoutineModel()
+    var routineModel:  RoutineModel?
     
     var delegate: RoutineInputViewDelegate?
         
@@ -42,7 +42,7 @@ class RoutineInputViewController: UIViewController {
         enterRoutineBarView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         // Setup input UI routine values in model
-        routineModel.setupInputUI(routineBeingEdited)
+        routineModel?.setupInputUI(routineBeingEdited)
         routineNameText.text = self.routineBeingEdited?.name
         
         // Input table view setup
@@ -64,7 +64,7 @@ class RoutineInputViewController: UIViewController {
             let alert = UIAlertController(title: "Oops", message: "Please enter a routine name", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-        } else if routineModel.startTimeDate > routineModel.endTimeDate {
+        } else if routineModel!.startTimeDate > routineModel!.endTimeDate {
             let alert = UIAlertController(title: "Oops", message: "Please enter a valid time range", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -84,22 +84,22 @@ class RoutineInputViewController: UIViewController {
     
     //MARK: - Data manipulation methods
     func updateRoutine(from existingRoutine: Routine) {
-        routineModel.updateRoutine(from: existingRoutine, with: routineNameText.text!)
+        routineModel?.updateRoutine(from: existingRoutine, with: routineNameText.text!)
     }
     
     func addRoutine() {
-        routineModel.addRoutine(with: routineNameText.text!)
+        routineModel?.addRoutine(with: routineNameText.text!)
     }
 }
 
 //MARK: - UITableViewDataSource methods
 extension RoutineInputViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return routineModel.routineInputCellDataArray.count }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return (routineModel?.routineInputCellDataArray.count)! }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DayTimeCell", for: indexPath) as! DayTimeCell
         
-        routineModel.populateDayTimeCell(withCell: cell, withIndexPath: indexPath, routineBeingEdited)
+        routineModel?.populateDayTimeCell(withCell: cell, withIndexPath: indexPath, routineBeingEdited)
                 
         cell.delegate = self
         
@@ -127,7 +127,7 @@ extension RoutineInputViewController: DayTimeCellDelegate {
     func didUpdateDayTime(_ dayTimeCell: DayTimeCell, dayOrTime: String) {
         if let collectionView = dayTimeCell.superview as? UITableView, let indexPath = collectionView.indexPath(for: dayTimeCell)
                {
-            routineModel.updateDayTimeCell(with: indexPath, with: dayOrTime)
+            routineModel?.updateDayTimeCell(with: indexPath, with: dayOrTime)
         }
     }
 
