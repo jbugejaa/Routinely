@@ -15,6 +15,9 @@
 		3A398A6026CCC6900069CA49 /* RoutineInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A398A5F26CCC6900069CA49 /* RoutineInputViewController.swift */; };
 		3A3FE8E126DA0DD70005655C /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FE8E026DA0DD70005655C /* Helper.swift */; };
 		3A41CBE726EB4C91002617D5 /* ExerciseInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A41CBE626EB4C91002617D5 /* ExerciseInputViewController.swift */; };
+		3A41CBE926ED818A002617D5 /* CalExerciseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A41CBE826ED818A002617D5 /* CalExerciseCell.xib */; };
+		3A41CBEB26EDAC5A002617D5 /* TimeExerciseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A41CBEA26EDAC5A002617D5 /* TimeExerciseCell.xib */; };
+		3A41CBF726EDCD83002617D5 /* TimerPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A41CBF626EDCD83002617D5 /* TimerPopupViewController.swift */; };
 		3A45C60126CB46D0007A9E53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C60026CB46D0007A9E53 /* AppDelegate.swift */; };
 		3A45C60326CB46D0007A9E53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C60226CB46D0007A9E53 /* SceneDelegate.swift */; };
 		3A45C60526CB46D0007A9E53 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A45C60426CB46D0007A9E53 /* RoutineViewController.swift */; };
@@ -62,6 +65,9 @@
 		3A398A5F26CCC6900069CA49 /* RoutineInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineInputViewController.swift; sourceTree = "<group>"; };
 		3A3FE8E026DA0DD70005655C /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		3A41CBE626EB4C91002617D5 /* ExerciseInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseInputViewController.swift; sourceTree = "<group>"; };
+		3A41CBE826ED818A002617D5 /* CalExerciseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalExerciseCell.xib; sourceTree = "<group>"; };
+		3A41CBEA26EDAC5A002617D5 /* TimeExerciseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeExerciseCell.xib; sourceTree = "<group>"; };
+		3A41CBF626EDCD83002617D5 /* TimerPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPopupViewController.swift; sourceTree = "<group>"; };
 		3A45C5FD26CB46D0007A9E53 /* Routinely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A45C60026CB46D0007A9E53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A45C60226CB46D0007A9E53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +222,7 @@
 				3AEFF07B26CB87F700D533E8 /* ExerciseViewController.swift */,
 				3A398A5F26CCC6900069CA49 /* RoutineInputViewController.swift */,
 				3A41CBE626EB4C91002617D5 /* ExerciseInputViewController.swift */,
+				3A41CBF626EDCD83002617D5 /* TimerPopupViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -236,6 +243,8 @@
 			children = (
 				3AA5254026D38B0100A53249 /* ExerciseCell.xib */,
 				3AA5254426D38B4800A53249 /* ExerciseCell.swift */,
+				3A41CBE826ED818A002617D5 /* CalExerciseCell.xib */,
+				3A41CBEA26EDAC5A002617D5 /* TimeExerciseCell.xib */,
 			);
 			path = ExerciseCell;
 			sourceTree = "<group>";
@@ -375,7 +384,9 @@
 				3AFE249B26CE55F10084B596 /* DayTimeCell.xib in Resources */,
 				3A45C60D26CB46D1007A9E53 /* LaunchScreen.storyboard in Resources */,
 				3A45C60A26CB46D1007A9E53 /* Assets.xcassets in Resources */,
+				3A41CBEB26EDAC5A002617D5 /* TimeExerciseCell.xib in Resources */,
 				3AA5254126D38B0100A53249 /* ExerciseCell.xib in Resources */,
+				3A41CBE926ED818A002617D5 /* CalExerciseCell.xib in Resources */,
 				3A05909C26CBC467001D7A43 /* Podfile in Resources */,
 				3AB869C126CBD4FD00A5673D /* RoutineCell.xib in Resources */,
 				3A45C60826CB46D0007A9E53 /* Main.storyboard in Resources */,
@@ -446,6 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AEFF07A26CB7D0300D533E8 /* RealmManager.swift in Sources */,
+				3A41CBF726EDCD83002617D5 /* TimerPopupViewController.swift in Sources */,
 				3AFE249D26CE564C0084B596 /* DayTimeCell.swift in Sources */,
 				3A398A5826CCAC7E0069CA49 /* RoutineCell.swift in Sources */,
 				3AEFF07C26CB87F700D533E8 /* ExerciseViewController.swift in Sources */,

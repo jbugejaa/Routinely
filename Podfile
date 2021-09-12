@@ -1,10 +1,10 @@
-platform :ios, '9.0'
+platform :ios, '12.0'
 
 target 'Routinely' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Todoey
+  # Pods for Routinely
   pod 'RealmSwift'
   pod 'SwipeCellKit'
 

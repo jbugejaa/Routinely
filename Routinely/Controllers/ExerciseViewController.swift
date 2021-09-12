@@ -8,6 +8,7 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
+import BottomPopup
 
 class ExerciseViewController: UIViewController {
     
