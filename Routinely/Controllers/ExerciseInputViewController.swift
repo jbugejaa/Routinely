@@ -29,8 +29,13 @@ class ExerciseInputViewController: UIViewController {
     override func viewDidLoad() {
         selectionButtons = [selectionButtonOne, selectionButtonTwo, selectionButtonThree, selectionButtonFour]
         
+        // Setup UI button elements
         for button in selectionButtons {
             button.layer.cornerRadius = 25
+            button.layer.shadowColor = UIColor.darkGray.cgColor
+            button.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+            button.layer.shadowOpacity = 0.4
+            button.layer.shadowRadius = 5.0
         }
     }
     
